@@ -36,8 +36,8 @@ def FrgtPwWin():
     frame=Frame(root2,bg='white')
     frame.place(x=35,y=20,width=280, height=360)
 
-    title1=Label(root2,text="RESET PASSWORD",font=("Montserrat",17),bg="white")
-    title1.place(x=60,y=40)
+    title1=Label(root2,text="CHANGE PASSWORD",font=("Montserrat",17),bg="white")
+    title1.place(x=50,y=40)
 
     email_label=Label(root2,text="Enter Email",font=("Montserrat",12),bg='white')
     email_label.place(x=65,y=100)
@@ -61,8 +61,8 @@ def FrgtPwWin():
     newcpw_entry.place(x=68,y=275,width=200,height=25)
     pswd_show(root2, newcpw_entry, eye_imge, 270, 275)
 
-    next_btn=Button(root2,text="Save",font=('Montserrat', 12),bg="white",command=check_entries)
-    next_btn.place(x=130,y=315, width=70, height=30)
+    next_btn=Button(root2,text="confirm",font=('Montserrat', 12),bg="white",command=check_entries)
+    next_btn.place(x=130,y=325, width=70, height=40)
 
 if __name__ == '__main__':
     FrgtPwWin()
