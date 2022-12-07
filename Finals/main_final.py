@@ -1,4 +1,3 @@
-import time
 from tkinter import *
 from tkinter import messagebox as mb
 from PIL import ImageTk
@@ -106,9 +105,6 @@ def login_page():
             mb.showinfo("Success", "Login Successful") # should be changed to check, then proceed to current acc
         else:
             mb.showinfo("Info Error", "Invalid username or password")
-            """ msg_label['text'] = "Invalid username or password"
-            time.sleep(3)
-            msg_label.pack_forget()"""
 
     frame=Frame(root,bg='white')
     frame.place(x=565,y=95,width=430, height=520)
@@ -117,9 +113,6 @@ def login_page():
     label_title.place(x=615, y=100)
     label_title = Label(root, text="Log in\nto continue to Quiz App", font=('Montserrat', 12), bg='white')
     label_title.place(x=690, y=192)
-
-    # msg_label = Label(root, text="", font=('Montserrat', 11),fg='red', bg='white')
-    # msg_label.place(x=660, y=530)
 
     label_usrnm_email = Label(root, text="Username/Email", font=('Montserrat', 13), bg='white')
     label_usrnm_email.place(x=620, y=315)

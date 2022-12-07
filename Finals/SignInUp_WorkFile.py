@@ -1,4 +1,3 @@
-import time
 from tkinter import *
 from tkinter import messagebox as mb
 from PIL import ImageTk
@@ -109,7 +108,6 @@ def login_page():
         else:
             # mb.showinfo("Info Error", "Invalid username or password")
             msg_label['text'] = "Invalid username or password"
-            # time.sleep(3)
             msg_label.after(1000, lambda: msg_label.pack_forget())
 
     frame=Frame(root,bg='white')
