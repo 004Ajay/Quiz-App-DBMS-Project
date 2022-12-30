@@ -23,9 +23,9 @@ def exit_window(e): root.destroy() # to exit window
 
 
 #################  ICONS & IMAGES   ######################
-root.iconbitmap("Q.ico") # app icon (top left corner)
-eye_img = ImageTk.PhotoImage(file="show_pw.png") # to show/hide password
-bg1=ImageTk.PhotoImage(file="db_prj_bg.jpg")  # change path of image as in your system
+root.iconbitmap("assets/Q.ico") # app icon (top left corner)
+eye_img = ImageTk.PhotoImage(file="assets/show_pw.png") # to show/hide password
+bg1=ImageTk.PhotoImage(file="assets/main_bg.jpg")  # change path of image as in your system
 bg_lbl=Label(root,image=bg1).place(x=0, y=-0, relwidth=1, relheight=1)
 
 
@@ -139,8 +139,6 @@ def login_page():
                       ,fg='blue',bd=0,cursor='hand2',bg='white',command=register_page) # bd is border
     register_button.place(x=777, y=567, width=125, height=35)
 
-# def ltcua(): # ltcua - login to current user account
-# def ltadmac(): # ltadm - login to admin account
 root.bind('<Escape>', exit_window)
 login_page()
 root.mainloop()

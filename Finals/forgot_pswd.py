@@ -13,11 +13,11 @@ def FrgtPwWin():
     root2=Toplevel()
     root2.title("Reset Password")
     root2.geometry("350x400+1000+220")
-    root2.iconbitmap('pswd.ico')
+    root2.iconbitmap('assets/reset_pswd.ico')
     root2.focus_force()
     root2.grab_set()
     global eye_imge 
-    eye_imge = ImageTk.PhotoImage(file="show_pw.png") # image for show/hide password
+    eye_imge = ImageTk.PhotoImage(file="assets/show_pw.png") # image for show/hide password
 
     def check_entries():
         mycursor.execute(f"SELECT * FROM PLAYERS WHERE (email = '{email_entry.get()}' AND usrnm= '{usernm_entry.get()}')")
