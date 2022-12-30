@@ -1,75 +1,64 @@
-create database project;
-use project;
+CREATE DATABASE PROJECT;
+USE PROJECT;
 
-####################### Creating temporary user instance ###############################################
+####################### CREATING TEMPORARY USER INSTANCE ###############################################
 
 CREATE TEMPORARY TABLE TEMP_PLAYERS  
-SELECT p.usrnm, u.pswd   
-FROM PLAYERS p  
-INNER JOIN USERS u ON p.email = u.email 
-ORDER BY p.usrnm;
+SELECT P.USRNM, U.PSWD   
+FROM PLAYERS P  
+INNER JOIN USERS U ON P.EMAIL = U.EMAIL 
+ORDER BY P.USRNM;
 
-######################## Creating tables and inserting values ###########################################
+######################## CREATING TABLES AND INSERTING VALUES ###########################################
 
-create table categories (cid int not null, cname varchar(15), primary key(cid));
+CREATE TABLE CATEGORIES (CID INT NOT NULL, CNAME VARCHAR(15), PRIMARY KEY(CID));
 
-create table questions (qid int not null, question varchar (50), oid int not null, cid int,
-                        primary key(qid), foreign key (cid) references categories(cid));
+CREATE TABLE QUESTIONS (QID INT NOT NULL, QUESTION VARCHAR (50), OID INT NOT NULL, CID INT,
+                        PRIMARY KEY(QID), FOREIGN KEY (CID) REFERENCES CATEGORIES(CID));
 
-insert into categories values (1,'Science'),(2,'Computer'),(3,'GK'),(4,'Vehicles'),(5,'Nature'),(6,'Medicines'),(7,'Mobile'),(8,'Programming'),(9,'Hardware'),(10,'Software'),(11,'Cricket'),(12,'Football'),(13,'News'),(14,'Business'),(15,'Slogans')
+INSERT INTO CATEGORIES VALUES (1,'SCIENCE'),(2,'COMPUTER'),(3,'GK'),(4,'VEHICLES'),(5,'NATURE'),(6,'MEDICINES'),(7,'MOBILE'),(8,'PROGRAMMING'),(9,'HARDWARE'),(10,'SOFTWARE'),(11,'CRICKET'),(12,'FOOTBALL'),(13,'NEWS'),(14,'BUSINESS'),(15,'SLOGANS');
 
 
-insert into questions values (1,"Who was the Ancient Greek God of the Sun?",1,3);
+INSERT INTO QUESTIONS VALUES (1,"WHO WAS THE ANCIENT GREEK GOD OF THE SUN?",1,3);
 
 CREATE VIEW GK AS
-SELECT question
-FROM questions
-WHERE cid = 3;
+SELECT QUESTION
+FROM QUESTIONS
+WHERE CID = 3;
 
-create table options (oid int not null, option1 varchar(25), option2 varchar(25), option3 varchar(25), option4 varchar(25), qid int,
-                      primary key(oid), foreign key(qid) references questions(qid));
+CREATE TABLE OPTIONS (OID INT NOT NULL, OPTION1 VARCHAR(25), OPTION2 VARCHAR(25), OPTION3 VARCHAR(25), OPTION4 VARCHAR(25), QID INT,
+                      PRIMARY KEY(OID), FOREIGN KEY(QID) REFERENCES QUESTIONS(QID));
 
-alter table options add aid int
+ALTER TABLE OPTIONS ADD AID INT
 
-update options set aid = 3
+UPDATE OPTIONS SET AID = 3
 
-update options set aid = 3 where oid = 1
+UPDATE OPTIONS SET AID = 3 WHERE OID = 1
 
-insert into options values (1,"Hermes","Poseidon","Apollo","Hercules",1)
+INSERT INTO OPTIONS VALUES (1,"HERMES","POSEIDON","APOLLO","HERCULES",1)
 
-create table answers (aid int not null, answers varchar(25), qid int not null, oid int not null, primary key (aid),
-                      foreign key (qid) references questions (qid),
-                      foreign key (oid) references options (oid));
+CREATE TABLE ANSWERS (AID INT NOT NULL, ANSWERS VARCHAR(25), QID INT NOT NULL, OID INT NOT NULL, PRIMARY KEY (AID),
+                      FOREIGN KEY (QID) REFERENCES QUESTIONS (QID),
+                      FOREIGN KEY (OID) REFERENCES OPTIONS (OID));
 
-insert into answers values (3,"Apollo",1,1);
+INSERT INTO ANSWERS VALUES (3,"APOLLO",1,1);
 
-################################## Creating custom view options ############################################
+################################## CREATING CUSTOM VIEW OPTIONS ############################################
 
-create view question_options as 
-select q.question,o.option1,o.option2,o.option3,o.option4 from questions q, options o where q.qid = o.qid
+CREATE VIEW QUESTION_OPTIONS AS 
+SELECT Q.QUESTION,O.OPTION1,O.OPTION2,O.OPTION3,O.OPTION4 FROM QUESTIONS Q, OPTIONS O WHERE Q.QID = O.QID
 
-select * from question_options;
+SELECT * FROM QUESTION_OPTIONS;
 
-alter table answers rename column answers to answer;
+ALTER TABLE ANSWERS RENAME COLUMN ANSWERS TO ANSWER;
 
-create view question_answer as
-select q.question, a.answer from questions q, answers a where q.qid = a.qid;
+CREATE VIEW QUESTION_ANSWER AS
+SELECT Q.QUESTION, A.ANSWER FROM QUESTIONS Q, ANSWERS A WHERE Q.QID = A.QID;
 
-select * from question_answer;
+SELECT * FROM QUESTION_ANSWER;
 
-################################### Deleting category ########################################################
+################################### DELETING CATEGORY ########################################################
 
-delete c.cname, q.question, o.option1, o.option2, o.option3, o.option4, a.answer 
-from categories c, question q, options o, answer a 
-where c.cid = q.cid and q.qid = o.qid and o.oid = a.oid;
-
-
-
-
-
-
-
-
-
-
-
+DELETE C.CNAME, Q.QUESTION, O.OPTION1, O.OPTION2, O.OPTION3, O.OPTION4, A.ANSWER 
+FROM CATEGORIES C, QUESTION Q, OPTIONS O, ANSWER A 
+WHERE C.CID = Q.CID AND Q.QID = O.QID AND O.OID = A.OID;
