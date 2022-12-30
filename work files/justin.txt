@@ -1,0 +1,29 @@
+create database project;
+use project;
+
+CREATE TEMPORARY TABLE TEMP_PLAYERS  
+SELECT p.usrnm, u.pswd   
+FROM PLAYERS p  
+INNER JOIN USERS u ON p.email = u.email 
+ORDER BY p.usrnm;
+
+
+create table categories (cid int not null, cname varchar(15), primary key(cid));
+
+create table questions (qid int not null, question varchar (50), oid int not null, cid int,
+                        primary key(qid), foreign key (cid) references categories(cid));
+
+insert into categories values (1,'Science'),(2,'Computer'),(3,'GK'),(4,'Vehicles'),(5,'Nature'),(6,'Medicines'),(7,'Mobile'),(8,'Programming'),(9,'Hardware'),(10,'Software'),(11,'Cricket'),(12,'Football'),(13,'News'),(14,'Business'),(15,'Slogans')
+
+
+insert into questions values (1,"Who was the Ancient Greek God of the Sun?",1,3);
+
+CREATE VIEW GK AS
+SELECT question
+FROM questions
+WHERE cid = 3;
+
+create table options (oid int not null, option1 varchar(25), option2 varchar(25), option3 varchar(25), option4 varchar(25), qid int,aid int,
+                      primary key(oid), foreign key(qid) references questions(qid));
+
+insert into options values (1,"Hermes","Poseidon","Apollo","Hercules",1)
