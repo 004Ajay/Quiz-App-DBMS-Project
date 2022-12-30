@@ -1,8 +1,30 @@
 # <u> Quiz App Project </u>
 
-Details <!-- make a drop down -->
-### Frontend or UIs - Python Tkinter
-### Backend - MySQL
+<details> 
+  <summary><b> Details </b></summary>
+   Frontend or UIs - Python Tkinter
+   <br>
+   Backend - MySQL
+</details>
+
+
+<details> <summary><b> Creators </b></summary><br>
+
+### GitHub Profile linked to names
+
+[Ajay T Shaju](https://github.com/004Ajay)
+
+[Judin Augustine](https://github.com/Minddigger07)
+
+[Justin Thomas Jo](https://github.com/Juz-Tom-J)
+
+[Noyal Joseph](https://github.com/StDensity)
+
+[Vishnuprasad KG](https://github.com/VISHNUPRASAD-K-G)
+
+
+</details>
+
 
 <br>
 
@@ -12,4 +34,11 @@ Details <!-- make a drop down -->
 
 ## <u> SCREENSHOTS </u>
 
-<img src="screeshots/login_page.png" alt="Log In page" width="1920" height="1080">
+## Log In Page
+![Log In Page](screenshots/login_page.png "Log In Page")
+
+## Sign Up Page
+![Sign Up Page](screenshots/signup_page.png "Sign Up Page")
+
+## Reset Password Box
+![Reset Password](screenshots/reset_pswd.png "Reset Password Box")
