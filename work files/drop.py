@@ -1,13 +1,19 @@
-#Import the required libraries
-from tkinter import *
+import tkinter as tk
+import tkinter.font as tkFont
 
-#Create an instance of tkinter frame
-win= Tk()
+root = tk.Tk()
+root.geometry('300x200')
 
-#Define the size of window or frame
-win.geometry("715x250")
+helv36 = tkFont.Font(family='Helvetica', size=36)
+options = 'eggs spam toast'.split()
+selected = tk.StringVar(root, value=options[0])
 
-#Set the Menu initially
+choose_test = tk.OptionMenu(root, selected, *options)
+choose_test.config(font=helv36) # set the button font
 
+helv20 = tkFont.Font(family='Helvetica', size=20)
+menu = root.nametowidget(choose_test.menuname)  # Get menu widget.
+menu.config(font=helv20)  # Set the dropdown menu's font
+choose_test.grid(row=0, column=0, sticky='nsew')
 
-win.mainloop()
+root.mainloop()
