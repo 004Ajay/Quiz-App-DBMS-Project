@@ -23,7 +23,7 @@ def exit_window(e):
     root.destroy()
 
 def conti():
-    print(menu.get()) # to get 
+    print(menu.get()) # to get selected item from drop down list
 
 label_title = Label(root, text="Question Categories", font=('Montserrat', 35),bg='white') # center title
 label_title.place(x=520, y=130)
