@@ -4,10 +4,10 @@ from PIL import ImageTk, Image
 root = tk.Tk()
 root.title("Admin")
 root.geometry("1920x1080")
-root.iconbitmap("./Assets/Q.ico")
+root.iconbitmap("DBMS-Project/work files/Noyal/Q.ico")
 
 # Admin image
-admin_img = ImageTk.PhotoImage(Image.open("D:/Programming/Python/Project/Assets/admin-settings.png"))
+admin_img = ImageTk.PhotoImage(Image.open("DBMS-Project/work files/Noyal/admin-settings.png"))
 
 # Side Pannel
 side_panel = tk.Frame(root, bg="black")
