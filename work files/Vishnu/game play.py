@@ -48,7 +48,7 @@ def selected():
         des()
         z=radiovar.get()
         user.append(z)
-        if qnn==3:
+        if qnn==1:
             des()
             result()
         else:
@@ -75,7 +75,7 @@ def result():
     #score=0
     crt_ans=0
     wrong_ans=0
-    for j in range(0,3):
+    for j in range(0,1):
         if user[j]==ans[j]:
             #score+=5
             crt_ans+=1
@@ -126,7 +126,7 @@ def qn():
     global i,data,qnn,scibtn,r1,r2,r3,r4,s,cnt1,rep
   
     i=0
-    if qnn<3:
+    if qnn<1:
         radiovar.set(NONE)
         ans.append(data[qnn][6])
 
