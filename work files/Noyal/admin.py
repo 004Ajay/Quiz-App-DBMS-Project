@@ -29,19 +29,19 @@ def dashboard():
     admin_panel_items_frame.pack()
 
     total_user_label = tk.Label(admin_panel_items_frame, text="Total Users: \n\n100", font=admin_panel_item_font, bg="#9747FF", padx=30, pady=20)
-    total_user_label.grid(row=0, column=0, padx=100, pady=100)
+    total_user_label.grid(row=0, column=0, padx=50, pady=100)
 
     total_categories_label = tk.Label(admin_panel_items_frame, text="Total Categories: \n\n15", font=admin_panel_item_font, bg="#60F93E", padx=30, pady=20)
-    total_categories_label.grid(row=0, column=1, padx=100)
+    total_categories_label.grid(row=0, column=1, padx=50)
 
     total_question_label = tk.Label(admin_panel_items_frame, text="Total Questions: \n\n75", font=admin_panel_item_font, bg="#6BFFFF", padx=30, pady=20)
-    total_question_label.grid(row=0, column=2, padx=100)
+    total_question_label.grid(row=0, column=2, padx=50)
 
     # Notification Frame
     notification_frame = tk.LabelFrame(admin_panel_items_frame, bg="#F0F0F0")
     notification_frame.grid(row=1, column=1)
 
-    notification_label = tk.Label(notification_frame, text="Notifications", padx=30, font="montserrat, 25")
+    notification_label = tk.Label(notification_frame, text="Notifications", padx=10, font="montserrat, 25")
     notification_label.pack()
     notification_label = tk.Label(notification_frame, text="・ New Report for Question", padx=30, font="montserrat, 25")
     notification_label.pack(pady=20)
@@ -243,7 +243,7 @@ user_reports_button = tk.Button(side_panel, text="User Reports", font=side_panel
 user_reports_button.pack(padx=50, pady=20)
 
 statistics_button = tk.Button(side_panel, text="Statistics", font=side_panel_font, bg=side_panel_bg, foreground="white", relief="flat", activebackground=side_panel_bg, command=statistics)
-statistics_button.pack(padx=50, pady=20,)
+statistics_button.pack(padx=50, pady=20)
 
 
 # Content Frame
