@@ -1,6 +1,6 @@
 from tkinter import *
 import mysql.connector
-#from update_profile import *
+from update_profile import *
 
 root = Tk()
 root.geometry("1920x1080")
@@ -73,13 +73,17 @@ join_date.place(x=20,y=719)
 b_logout = Button(root,text ="Log out",font=('Montserrat',12),command=logout)
 b_logout.place(relx=.89,rely=0.016,height=30,width=80)
 
-b_settings = Button(root,image=PhotoImage(file="settings.png"),height=25)#, command= settings_icons)
+im = PhotoImage(file="settings.png") 
+b_settings = Button(root,image=im,height=25, command= settings_icons)
 b_settings.place(relx=.95,rely=.0149)
+
+# b_settings = Button(root,height=25, command= settings_icons)
+# b_settings.place(x=500,y=500)
 
 b_qu = Button(root,text="New Game",font=('Montserrat',15), command=qu)
 b_qu.place(x=1000, y=400, width=160, height=50)
 
-"""
+
 mycursor.execute("SELECT * FROM players")
 results = mycursor.fetchall() # Retrieve the query results
 column_names = [column[0] for column in mycursor.description] # Get the column names
@@ -101,7 +105,7 @@ for i, row in enumerate(results):
         label = Label(frame, text=col, bg='white')
         label.grid(row=i+1, column=j)
         labels.append(label)
-"""
+
 
 
 root.bind('<Escape>', exit_window)

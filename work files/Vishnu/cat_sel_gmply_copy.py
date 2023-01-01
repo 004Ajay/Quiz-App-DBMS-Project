@@ -71,7 +71,7 @@ def gameplay():
             mycursor.execute(f'insert into quiz_activity(player_email,date_played,category,question,user_answer,correct_answer) values(\'ajay@gmail.com\',curdate(),\'{data[qnn][7]}\',\'{data[qnn][1]}\',\'{z}\',\'{data[qnn][6]}\');')
             mydb.commit()
             mydb.reconnect()
-            if qnn==1:
+            if qnn==3: # change no of questions here
                 des()
                 result()
             else:
@@ -84,6 +84,7 @@ def gameplay():
         global data
         mycursor.execute(f'select * from questions where CATE=\'{cat}\' order by rand()')
         data=mycursor.fetchall()
+        print(len(data))
         qn()
 
 
@@ -94,7 +95,7 @@ def gameplay():
         #score=0
         crt_ans=0
         wrong_ans=0
-        for j in range(0,1):
+        for j in range(0,3): # change no of questions here
             if user[j]==ans[j]:
                 #score+=5
                 crt_ans+=1
@@ -139,7 +140,7 @@ def gameplay():
     def qn():
         global i, data, qnn, r1, r2, r3, r4, s, cnt1, exit_btn, rep
         i=0
-        if qnn<1:
+        if qnn<3: # change no of questions here
             radiovar.set(NONE)
             ans.append(data[qnn][6])
 
