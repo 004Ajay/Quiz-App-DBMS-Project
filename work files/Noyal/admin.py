@@ -39,7 +39,7 @@ def dashboard():
 
     # Notification Frame
     notification_frame = tk.LabelFrame(admin_panel_items_frame, bg="#F0F0F0")
-    notification_frame.grid(row=1, column=2)
+    notification_frame.grid(row=1, column=1)
 
     notification_label = tk.Label(notification_frame, text="Notifications", padx=30, font="montserrat, 25")
     notification_label.pack()
@@ -214,7 +214,6 @@ def delete_question():
 
 
 
-
 # Admin image, used in side panel.
 admin_img = ImageTk.PhotoImage(Image.open("DBMS-Project/work files/Noyal/admin_white.png"))
 
@@ -247,9 +246,10 @@ statistics_button = tk.Button(side_panel, text="Statistics", font=side_panel_fon
 statistics_button.pack(padx=50, pady=20,)
 
 
-
 # Content Frame
 content_frame = tk.Frame(root, bg="white")
 content_frame.pack(fill="both", expand="true")
+
+dashboard()
 
 root.mainloop()
