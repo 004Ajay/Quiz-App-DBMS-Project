@@ -1,12 +1,53 @@
+
+-- DB COMMANDS
+
+-- SQL SYNTAX VALIDATOR(ONLINE): https://www.eversql.com/sql-syntax-check-validator/
+
+-- ---------------------------------------------------------------------------------------- --
+
+-- FOR REMOVING TABLES FROM PROGRAMIZ SQL EDITOR
+DROP TABLE CUSTOMERS;
+DROP TABLE ORDERS;
+DROP TABLE SHIPPINGS;
+
+-- ---------------------------------------------------------------------------------------- --
+
+-- USERNAME: ROOT
+-- PASSWORD: 1234
+-- DATABASE NAME: PROJECT
+
+-- CHANGE DATABASE TO OUR DB
+USE PROJECT;
+
+-- SHOW TABLES IN DATABASE
+SHOW TABLES;
+
+
+
+
+
+-- FOR TESTING
+
 CREATE DATABASE BASE1;
 USE BASE1;
 
+-- ---------------------------------------------------------------------------------------- --
 
-CREATE TABLE USERS (
+
+CREATE TABLE PLAYERS (
     USERNAME VARCHAR(30) NOT NULL,
     EMAIL VARCHAR(30) NOT NULL PRIMARY KEY,
     PASSWORD VARCHAR(30) NOT NULL);
 
+
+-- INSERTING VALUES TO 'SIGN-IN' TABLE
+INSERT INTO PLAYERS VALUES ('AJAY', 'AJAY@GMAIL.COM', 'SJC'),
+                           ('NOYAL', 'NOYAL@GMAIL.COM', 'SJC'),
+                           ('JUDIN', 'JUDIN@GMAIL.COM', 'SJC'),
+                           ('JUSTIN', 'JUSTIN@GMAIL.COM', 'SJC'), 
+                           ('VISHNU', 'VISHNU@GMAIL.COM', 'SJC');
+
+-- ---------------------------------------------------------------------------------------- --
 
 CREATE TABLE QUESTIONS (
   Q_NO INT PRIMARY KEY,
@@ -17,6 +58,7 @@ CREATE TABLE QUESTIONS (
   OPT4 VARCHAR(30) NOT NULL,
   CORRECT_ANSWER VARCHAR(30) NOT NULL);
 
+-- ---------------------------------------------------------------------------------------- --
 
 CREATE TABLE CATEGORIES (
     CAT_NO INTEGER NOT NULL AUTO_INCEREMENT,
@@ -30,6 +72,7 @@ INSERT INTO QUESTIONS VALUES(3,"Business");
 INSERT INTO QUESTIONS VALUES(4,"General Knowledge");
 INSERT INTO QUESTIONS VALUES(5,"Nature");
 
+-- ---------------------------------------------------------------------------------------- --
 
 ALTER TABLE QUESTIONS
 ADD CATE_NAME VARCHAR(30) NOT NULL,
@@ -88,18 +131,20 @@ INSERT INTO QUESTIONS VALUES(48,"Which berry is very similar to a blueberry and 
 INSERT INTO QUESTIONS VALUES(49,"Which tree has leaves that look like palms?","Oak","Mango","Maple","Oak","Maple","Nature");
 INSERT INTO QUESTIONS VALUES(50,"On which trees do acorns grow?","Birch","Ash","Rowan","Pine","Oak","Nature");
 
+-- ---------------------------------------------------------------------------------------- --
+
 -- TO TRACK THE ACTIVITY OF USER IN THE QUIZ APP
 CREATE TABLE QUIZ_ACTIVITY (
     ID INTEGER AUTO_INCREMENT PRIMARY KEY,
-    USER_EMAIL VARCHAR(30) NOT NULL,
+    PLAYER_EMAIL VARCHAR(30) NOT NULL,
     DATE_PLAYED DATETIME NOT NULL,
     CATEGORY VARCHAR(30) NOT NULL,
     QUESTION VARCHAR(200) NOT NULL,
     USER_ANSWER VARCHAR(30) NOT NULL,
     CORRECT_ANSWER VARCHAR(30) NOT NULL,
-    FOREIGN KEY (USER_EMAIL) REFERENCES USERS(EMAIL));
+    FOREIGN KEY (PLAYER_EMAIL) REFERENCES PLAYERS(EMAIL));
     
-
+-- ---------------------------------------------------------------------------------------- --
 
 -- TO CREATE VIEW FOR SELECTING QUESTION FROM USER SELECTED CATEGORY
 CREATE VIEW VIEW_QNS AS
@@ -107,5 +152,6 @@ SELECT Q_NO, QN, OPT1, OPT2, OPT3, OPT4, CRT_ANS
 FROM QUESTIONS
 WHERE CATE = 'Nature';
 
+-- ---------------------------------------------------------------------------------------- --
 
 SHOW TABLES;
