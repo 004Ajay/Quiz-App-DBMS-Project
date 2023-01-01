@@ -2,12 +2,11 @@ from tkinter import *
 
 window = Tk()
 window.geometry("1920x1080")
-window.title("welcome"+username)
+window.title("welcome + username")
 window.iconbitmap('favicon.ico')
 
 
 #background
-
 bg = Label(window,bg="white")
 bg.place(x=0,y=0,relwidth=1,relheight=1)
 
@@ -57,7 +56,6 @@ def qu():
 
 b_qu = Button(window,text="Question\ncategories>>",height=3,width=13,command=qu)
 b_qu.place(relx=.78,rely=.43)
-
 
 
 window.mainloop()

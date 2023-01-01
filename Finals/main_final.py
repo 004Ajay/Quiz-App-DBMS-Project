@@ -7,6 +7,11 @@ from db_connect import project_db # for accessing 'our project database'
 
 mydb = project_db()
 mycursor = mydb.cursor(buffered=True)
+"""
+A buffered cursor stores the result set in the client's memory after executing a SELECT statement.
+This can be more memory efficient than a non-buffered cursor, which stores the entire result set on the server
+and retrieves it row by row as needed.
+"""
 
 root = Tk()
 root.geometry("1920x1080")
@@ -21,13 +26,12 @@ root.state('zoomed')
 
 def exit_window(e): root.destroy() # to exit window
 
-
 #################  ICONS & IMAGES   ######################
+
 root.iconbitmap("assets/Q.ico") # app icon (top left corner)
 eye_img = ImageTk.PhotoImage(file="assets/show_pw.png") # to show/hide password
 bg1=ImageTk.PhotoImage(file="assets/main_bg.jpg")  # change path of image as in your system
 bg_lbl=Label(root,image=bg1).place(x=0, y=-0, relwidth=1, relheight=1)
-
 
 #################   SIGN_UP PAGE   ############################
 

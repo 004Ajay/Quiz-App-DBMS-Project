@@ -1,3 +1,18 @@
+
+
+
+
+#####################################################################################################
+#####################################################################################################
+# TRYING TO SET UP ADMIN LOGIN, ERRORED...
+#
+#####################################################################################################
+#####################################################################################################
+
+
+
+
+
 from tkinter import *
 from tkinter import messagebox as mb
 from PIL import ImageTk
@@ -103,23 +118,23 @@ def register_page():
 def login_page():
     root.title("Log in page")
 
-    username = (usrnm_email.get()).lower() # converting to lower case
-    email = usrnm_email.get()
-    password = (pw.get()).lower()
-
-    if username or email == 'admin' and password == 'pass':
-        # admin_panel()
-        pass
-    else:
-        
-
     def verify_login():
-        mydb.reconnect()
-        mycursor.execute(f"SELECT * FROM PLAYERS WHERE (USRNM = '{usrnm_email.get()}' OR EMAIL = '{usrnm_email.get()}') AND PSWD = '{pw.get()}'")
-        if len(mycursor.fetchall()) > 0:
-            mb.showinfo("Success", "Login Successful") # should be changed to check, then proceed to current acc
+        # mydb.reconnect()
+        username = usrnm_email.get() # converting to lower case
+        email = usrnm_email.get()
+        password = pw.get()
+        print(username, password)
+
+        if username or email == 'admin' and password == 'pass':
+            # admin_panel()
+            print("logging to admin panel")
         else:
-            mb.showinfo("Info Error", "Invalid username or password")
+            mycursor.execute(f"SELECT * FROM PLAYERS WHERE (USRNM = '{username}' OR EMAIL = '{email}') AND PSWD = '{password}'")
+        # do other login related things
+            if len(mycursor.fetchall()) > 0:
+                mb.showinfo("Success", "Login Successful") # should be changed to check, then proceed to current acc
+            else:
+                mb.showinfo("Info Error", "Invalid username or password")
 
     frame=Frame(root,bg='white')
     frame.place(x=565,y=95,width=430, height=520)
