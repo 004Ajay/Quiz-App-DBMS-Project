@@ -2,19 +2,20 @@ import tkinter as tk
 from PIL import ImageTk, Image
 
 side_panel_bg = "#3f3f3f"
-side_panel_font = "montserrat, 15"
-admin_panel_item_font= "montserrat, 25"
+side_panel_font = "Montserrat, 15"
+admin_panel_item_font= "Montserrat, 25"
 
 root = tk.Tk()
 root.title("Admin")
 root.geometry("1920x1080")
-root.iconbitmap("DBMS-Project/work files/Noyal/Q.ico")
+# root.iconbitmap("DBMS-Project/work files/Noyal/Q.ico")
+root.iconbitmap("Q.ico")
 
+#################  KEYBOARD SHORTCUTS   ######################
 
+def exit_window(e): root.destroy() # to exit window
 
-
-
-
+##############################################################
 
 # BUTTON FUNCTION
 
@@ -22,7 +23,7 @@ def dashboard():
     for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame.
         widget.destroy()
 
-    admin_panel_label = tk.Label(content_frame, text="Admin Panel", font="montserrat, 55", bg="white")
+    admin_panel_label = tk.Label(content_frame, text="Admin Panel", font="Montserrat, 45", bg="white")
     admin_panel_label.pack(pady=30)
 
     admin_panel_items_frame = tk.Label(content_frame, bg="white")
@@ -41,9 +42,9 @@ def dashboard():
     notification_frame = tk.LabelFrame(admin_panel_items_frame, bg="#F0F0F0")
     notification_frame.grid(row=1, column=1)
 
-    notification_label = tk.Label(notification_frame, text="Notifications", padx=30, font="montserrat, 25")
+    notification_label = tk.Label(notification_frame, text="Notifications", padx=30, font="Montserrat, 25")
     notification_label.pack()
-    notification_label = tk.Label(notification_frame, text="・ New Report for Question", padx=30, font="montserrat, 25")
+    notification_label = tk.Label(notification_frame, text="・ New Report for Question", padx=30, font="Montserrat, 25")
     notification_label.pack(pady=20)
 
     
@@ -52,7 +53,7 @@ def question_controls():
     for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame.
         widget.destroy()
 
-    question_controls_label = tk.Label(content_frame, bg="white", text="Question Controls", font="montserrat, 55")
+    question_controls_label = tk.Label(content_frame, bg="white", text="Question Controls", font="Montserrat, 55")
     question_controls_label.pack(pady=30)
 
     question_controls_frame = tk.Frame(content_frame, bg="white")
@@ -74,7 +75,7 @@ def user_controls():
     for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame.
         widget.destroy()
 
-    user_controls_label = tk.Label(content_frame, bg="white", text="User Controls", font="montserrat, 55")
+    user_controls_label = tk.Label(content_frame, bg="white", text="User Controls", font="Montserrat, 55")
     user_controls_label.pack(pady=30)
 
     user_controls_frame = tk.Frame(content_frame, bg="white")
@@ -215,7 +216,8 @@ def delete_question():
 
 
 # Admin image, used in side panel.
-admin_img = ImageTk.PhotoImage(Image.open("DBMS-Project/work files/Noyal/admin_white.png"))
+# admin_img = ImageTk.PhotoImage(Image.open("DBMS-Project/work files/Noyal/admin_white.png"))
+admin_img = ImageTk.PhotoImage(Image.open("admin_white.png"))
 
 
 
@@ -252,4 +254,5 @@ content_frame.pack(fill="both", expand="true")
 
 dashboard()
 
+root.bind('<Escape>', exit_window)
 root.mainloop()
