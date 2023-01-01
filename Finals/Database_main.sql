@@ -12,6 +12,15 @@ DROP TABLE SHIPPINGS;
 
 -- ---------------------------------------------------------------------------------------- --
 
+--        ------------- ****** MAJOR CHANGES ****** -------------   --
+
+-- NAME OF COLUMN QN(USED FOR STROING QUESTIONS) OF QUESTIONS TABLE NAME HAS CHANGED TO QUESTIONS
+-- VIEW FROM QUESTIONS TABLE HAS CREATED & IT TAKES QUESTION ONLY FROM SELECTED CATEGORY
+-- 'CATE_NAME' COLUMN IS A FOREIGN KEY IN QUESTIONS TABLE THAT REFERENCES CATEGORIES TABLE'S 'CATEGORY_NAME' COLUMN
+-- THERE IS A CONFUSION REGARDING QUIZ_ACTIVITY TABLE, HOW TO USE IT
+
+-- ---------------------------------------------------------------------------------------- --
+
 -- USERNAME: ROOT
 -- PASSWORD: 1234
 -- DATABASE NAME: PROJECT
@@ -23,7 +32,8 @@ USE PROJECT;
 SHOW TABLES;
 
 
-
+-- ---------------------------------------------------------------------------------------- --
+-- ---------------------------------------------------------------------------------------- --
 
 
 -- FOR TESTING
@@ -33,19 +43,23 @@ USE BASE1;
 
 -- ---------------------------------------------------------------------------------------- --
 
-
 CREATE TABLE PLAYERS (
     USERNAME VARCHAR(30) NOT NULL,
     EMAIL VARCHAR(30) NOT NULL PRIMARY KEY,
     PASSWORD VARCHAR(30) NOT NULL);
 
 
--- INSERTING VALUES TO 'SIGN-IN' TABLE
+-- INSERTING VALUES TO PLAYERS TABLE
 INSERT INTO PLAYERS VALUES ('AJAY', 'AJAY@GMAIL.COM', 'SJC'),
                            ('NOYAL', 'NOYAL@GMAIL.COM', 'SJC'),
                            ('JUDIN', 'JUDIN@GMAIL.COM', 'SJC'),
                            ('JUSTIN', 'JUSTIN@GMAIL.COM', 'SJC'), 
                            ('VISHNU', 'VISHNU@GMAIL.COM', 'SJC');
+
+-- ---------------------------------------------------------------------------------------- --
+
+-- SAMPLE LOGIN QUERY
+SELECT * FROM PLAYERS WHERE (USERNAME = 'AJAY' OR EMAIL = 'AJAY@GMAIL.COM') AND PASSWORD = 'SJC';
 
 -- ---------------------------------------------------------------------------------------- --
 
@@ -148,10 +162,11 @@ CREATE TABLE QUIZ_ACTIVITY (
 
 -- TO CREATE VIEW FOR SELECTING QUESTION FROM USER SELECTED CATEGORY
 CREATE VIEW VIEW_QNS AS
-SELECT Q_NO, QN, OPT1, OPT2, OPT3, OPT4, CRT_ANS
+SELECT Q_NO, QUESTION, OPT1, OPT2, OPT3, OPT4, CRT_ANS
 FROM QUESTIONS
 WHERE CATE = 'Nature';
 
 -- ---------------------------------------------------------------------------------------- --
 
-SHOW TABLES;
+-- GETTING VALUES FROM VIEW TABLE
+SELECT * FROM VIEW_QNS;
