@@ -33,22 +33,22 @@ last_played.place(x=550,y=160)
 stat = Label(window,text="Recent gameplays",font=('Arial',30,'italic'),bg="white")
 stat.place(x=250,y=299)
 
-play = Label(window,text="New game",font=('Arial',30,'italic'),bg="white")
-play.place(x=1150,y=291.5)
+new_game = Label(window,text="New game",font=('Arial',30,'italic'),bg="white")
+new_game.place(x=1150,y=291.5)
 
 #buttons 
 
 def logout():
     return()
 
-b_logout = Button(window,text ="Log out",font=('Arial',8),command=logout,height=1,width=7)
+b_logout = Button(window,text ="Log out",font=('Arial',8),height=1,width=7,command=logout)
 b_logout.place(relx=.919,rely=.0149)
 
 def settings():
     return()
 
 images = PhotoImage(file="set.png")
-b_settings = Button(window,image=images,command=settings,height=25)
+b_settings = Button(window,image=images,height=25,command=settings)
 b_settings.place(relx=.955,rely=.008)
 
 
