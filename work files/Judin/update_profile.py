@@ -11,7 +11,8 @@ def settings_icons():
         root2.grab_set()
         root2.config(bg='white')
         global eye_imge 
-        eye_imge = ImageTk.PhotoImage(file="assets/show_pw.png") # image for show/hide password
+        # eye_imge = ImageTk.PhotoImage(file="assets/show_pw.png") # image for show/hide password
+        # eye_imge = ImageTk.PhotoImage(file="show_pw.png") # image for show/hide password
 
         title1=Label(root2,text="Edit User Profile",font=("Montserrat",17),bg="white")
         title1.place(relx=0.5,rely=.15,anchor=CENTER)

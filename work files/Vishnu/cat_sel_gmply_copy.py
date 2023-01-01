@@ -68,6 +68,9 @@ def gameplay():
             des()
             z=radiovar.get()
             user.append(z)
+            mycursor.execute(f'insert into quiz_activity(player_email,date_played,category,question,user_answer,correct_answer) values(\'ajay@gmail.com\',curdate(),\'{data[qnn][7]}\',\'{data[qnn][1]}\',\'{z}\',\'{data[qnn][6]}\');')
+            mydb.commit()
+            mydb.reconnect()
             if qnn==1:
                 des()
                 result()

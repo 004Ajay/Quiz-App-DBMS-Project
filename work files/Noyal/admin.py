@@ -28,8 +28,8 @@ def dashboard():
 
     admin_panel_items_frame = tk.Label(content_frame, bg="white")
     admin_panel_items_frame.pack()
-
-    total_user_label = tk.Label(admin_panel_items_frame, text="Total Users: \n\n100", font=admin_panel_item_font, bg="#9747FF", padx=30, pady=20)
+    var = 50 # change 
+    total_user_label = tk.Label(admin_panel_items_frame, text=f"Total Users: \n\n{var}", font=admin_panel_item_font, bg="#9747FF", padx=30, pady=20)
     total_user_label.grid(row=0, column=0, padx=50, pady=100)
 
     total_categories_label = tk.Label(admin_panel_items_frame, text="Total Categories: \n\n15", font=admin_panel_item_font, bg="#60F93E", padx=30, pady=20)
