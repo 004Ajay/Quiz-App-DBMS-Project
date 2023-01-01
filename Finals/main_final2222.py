@@ -1,9 +1,25 @@
+
+
+
+
+
+#####################################################################################################
+#####################################################################################################
+# TRYING TO INTEGRATE GAMEPLAY AFTER LOGIN
+#
+#####################################################################################################
+#####################################################################################################
+
+
+
+
 from tkinter import *
 from tkinter import messagebox as mb
 from PIL import ImageTk
 from pswdShowHide import pswd_show # show/hide password
 from forgot_pswd import * # from forgot password file
 from db_connect import project_db # for accessing 'our project database'
+from cat_gmply_main import gameplay
 
 mydb = project_db()
 mycursor = mydb.cursor(buffered=True)
@@ -106,7 +122,8 @@ def login_page():
         mydb.reconnect()
         mycursor.execute(f"SELECT * FROM PLAYERS WHERE (USRNM = '{usrnm_email.get()}' OR EMAIL = '{usrnm_email.get()}') AND PSWD = '{pw.get()}'")
         if len(mycursor.fetchall()) > 0:
-            mb.showinfo("Success", "Login Successful") # should be changed to check, then proceed to current acc
+            gameplay()
+            # mb.showinfo("Success", "Login Successful") # should be changed to check, then proceed to current acc
         else:
             mb.showinfo("Info Error", "Invalid username or password")
 

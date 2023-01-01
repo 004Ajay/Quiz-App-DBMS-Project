@@ -34,9 +34,11 @@ label_heading.place(x=615,y=200)
 menu = StringVar() # drop-down list text
 menu.set("Select a category") 
 
-cate = ['Science', 'Computer', 'GK', 'Vehicles', 'Nature',
-'Medicines', 'Mobile', 'Programming', 'Hardware', 'Software',
-'Cricket', 'Football', 'News', 'Business', 'Slogans'] # change this to getting data from db like...
+cate = ['Computer Science',
+        'Automobiles',
+        'Business',
+        'General Knowledge',
+        'Nature'] # change this to getting data from db like...
 
 drop_down = OptionMenu(root, menu, *cate) # Create a dropdown menu
 drop_down.config(font=tkf.Font(family='Montserrat', size=15)) # Montserrat
@@ -55,4 +57,8 @@ root.bind('<Escape>', exit_window)
 root.mainloop()
 
 
-# git pull push sync
+'Computer Science',
+'Automobiles',
+'Business',
+'General Knowledge',
+'Nature'

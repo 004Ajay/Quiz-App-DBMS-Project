@@ -1,3 +1,18 @@
+
+
+
+
+#####################################################################################################
+#####################################################################################################
+# TRYING TO SET UP ADMIN LOGIN, ERRORED...
+#
+#####################################################################################################
+#####################################################################################################
+
+
+
+
+
 from tkinter import *
 from tkinter import messagebox as mb
 from PIL import ImageTk
@@ -26,12 +41,13 @@ root.state('zoomed')
 
 def exit_window(e): root.destroy() # to exit window
 
-#################  ICONS & IMAGES   ######################
 
+#################  ICONS & IMAGES   ######################
 root.iconbitmap("assets/Q.ico") # app icon (top left corner)
 eye_img = ImageTk.PhotoImage(file="assets/show_pw.png") # to show/hide password
 bg1=ImageTk.PhotoImage(file="assets/main_bg.jpg")  # change path of image as in your system
 bg_lbl=Label(root,image=bg1).place(x=0, y=-0, relwidth=1, relheight=1)
+
 
 #################   SIGN_UP PAGE   ############################
 
@@ -103,12 +119,22 @@ def login_page():
     root.title("Log in page")
 
     def verify_login():
-        mydb.reconnect()
-        mycursor.execute(f"SELECT * FROM PLAYERS WHERE (USRNM = '{usrnm_email.get()}' OR EMAIL = '{usrnm_email.get()}') AND PSWD = '{pw.get()}'")
-        if len(mycursor.fetchall()) > 0:
-            mb.showinfo("Success", "Login Successful") # should be changed to check, then proceed to current acc
+        # mydb.reconnect()
+        username = usrnm_email.get() # converting to lower case
+        email = usrnm_email.get()
+        password = pw.get()
+        print(username, password)
+
+        if username or email == 'admin' and password == 'pass':
+            # admin_panel()
+            print("logging to admin panel")
         else:
-            mb.showinfo("Info Error", "Invalid username or password")
+            mycursor.execute(f"SELECT * FROM PLAYERS WHERE (USRNM = '{username}' OR EMAIL = '{email}') AND PSWD = '{password}'")
+        # do other login related things
+            if len(mycursor.fetchall()) > 0:
+                mb.showinfo("Success", "Login Successful") # should be changed to check, then proceed to current acc
+            else:
+                mb.showinfo("Info Error", "Invalid username or password")
 
     frame=Frame(root,bg='white')
     frame.place(x=565,y=95,width=430, height=520)
