@@ -153,7 +153,10 @@ def user_reports():
 
 def add_question():
 
-    des()
+    
+
+    frm = tk.Frame(content_frame, bg='red')
+    frm.pack(expand=True)
 
     for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
         widget.destroy()
@@ -201,7 +204,7 @@ def add_question():
 
 
 def update_question():
-    des()
+    # des()
     for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
         widget.destroy()
 
@@ -292,6 +295,7 @@ def delete_question():
 
     del_button = tk.Button(root, text="Delete Question",font=side_panel_font) # , command = delete_question) # add command function
     del_button.place(x=800, y=610, width=170, height=40)
+    
 
 
 ##################### USER CONTROLS SECTION #############################
