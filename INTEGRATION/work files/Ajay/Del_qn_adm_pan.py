@@ -34,10 +34,27 @@ label_title.place(x=520, y=130)
 label_heading=Label(root,text='Click the drop down to select category',font=('Montserrat', 12),bg='white') # Short Description
 label_heading.place(x=615,y=200)
 
+def show_qns():
+    mydb.reconnect() # To refresh the cursor buffer
+
+    qn_menu = StringVar() # drop-down list of questions under selected category
+    qn_menu.set("Select the question to delete")
+
+    mycursor.execute(f"SELECT QUESTION FROM QUESTIONS WHERE CATE_NAME = '{cate_menu.get()}'")
+    qns_lst = [i[0] for i in mycursor.fetchall()]
+
+    qn_drop_down = OptionMenu(root, qn_menu, *qns_lst) # Create a dropdown menu for questions of selected category
+    qn_drop_down.config(font=tkf.Font(family='Montserrat', size=15))
+    qn_dd_list = root.nametowidget(qn_drop_down.menuname)  # Get menu widget.
+    qn_dd_list.config(font=tkf.Font(family='Montserrat', size=12))  # Set the dropdown menu's font
+    qn_drop_down.place(x=580, y=430, width=380, height=40)
+   
+# global cate_menu   
 cate_menu = StringVar() # drop-down list of categories
 cate_menu.set("Select Question Category") 
 
-cate = mycursor.execute("SELECT DISTINCT CATE FROM QUESTIONS")
+
+cate = mycursor.execute("SELECT DISTINCT CATE_NAME FROM QUESTIONS")
 categories = [i[0] for i in mycursor.fetchall()]
 
 cate_drop_down = OptionMenu(root, cate_menu, *categories) # Create a dropdown menu
@@ -46,19 +63,14 @@ cate_dd_list = root.nametowidget(cate_drop_down.menuname)  # Get menu widget.
 cate_dd_list.config(font=tkf.Font(family='Montserrat', size=12))  # Set the dropdown menu's font
 cate_drop_down.place(x=580, y=330, width=380, height=40)
 
-mydb.reconnect() # To refresh the cursor buffer
+ 
 
-qn_menu = StringVar() # drop-down list of questions under selected category
-qn_menu.set("Select the question to delete")
+show_qn_btn = Button(root, text="Show Question",font=('Montserrat',12), command = show_qns) # add command function
+show_qn_btn.place(x=480, y=550, width=170, height=40)
 
-sel_cate_qns = mycursor.execute(f"SELECT QN FROM QUESTIONS WHERE CATE = '{cate_menu.get()}'")
-qns_lst = [i[0] for i in mycursor.fetchall()]
+print(cate_menu.get())
 
-qn_drop_down = OptionMenu(root, qn_menu, *qns_lst) # Create a dropdown menu for questions of selected category
-qn_drop_down.config(font=tkf.Font(family='Montserrat', size=15))
-qn_dd_list = root.nametowidget(qn_drop_down.menuname)  # Get menu widget.
-qn_dd_list.config(font=tkf.Font(family='Montserrat', size=12))  # Set the dropdown menu's font
-qn_drop_down.place(x=580, y=430, width=380, height=40)
+     
 
 continue_button = Button(root, text="Delete Question",font=('Montserrat',12), command = del_qn) # add command function
 continue_button.place(x=680, y=550, width=170, height=40)
