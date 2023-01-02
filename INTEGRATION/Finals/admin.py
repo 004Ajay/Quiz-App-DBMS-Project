@@ -1,3 +1,4 @@
+from tkinter import Frame
 import tkinter as tk
 from PIL import ImageTk, Image
 import mysql.connector
@@ -40,31 +41,52 @@ def dashboard():
     admin_panel_items_frame.pack()
 
     mycursor.execute("SELECT COUNT(DISTINCT(EMAIL)) FROM PLAYERS")
-    tot_users = mycursor.fetchall()[0][0]
+    tot_users = mycursor.fetchall()[0][0] # selecting req value from output: [(5,)]
+    mycursor.execute('SELECT COUNT(DISTINCT(CATEGORY_NAME)) FROM CATEGORIES')
+    tot_cate = mycursor.fetchall()[0][0]
+    mycursor.execute('SELECT COUNT(DISTINCT(Q_NO)) FROM QUESTIONS')
+    tot_qns = mycursor.fetchall()[0][0]
 
     total_user_label = tk.Label(admin_panel_items_frame, text=f"Total Users\n\n{tot_users}", font=admin_panel_item_font, bg="#9747FF", padx=30, pady=20)
     total_user_label.grid(row=0, column=0, padx=50, pady=100)
 
-    mycursor.execute('SELECT COUNT(DISTINCT(CATEGORY_NAME)) FROM CATEGORIES')
-    tot_cate = mycursor.fetchall()[0][0]
-
     total_categories_label = tk.Label(admin_panel_items_frame, text=f"Total Categories\n\n{tot_cate}", font=admin_panel_item_font, bg="#60F93E", padx=30, pady=20)
     total_categories_label.grid(row=0, column=1, padx=50)
-
-    mycursor.execute('SELECT COUNT(DISTINCT(Q_NO)) FROM QUESTIONS')
-    tot_qns = mycursor.fetchall()[0][0] # selecting req value from output: [(50,)]
 
     total_question_label = tk.Label(admin_panel_items_frame, text=f"Total Questions\n\n{tot_qns}", font=admin_panel_item_font, bg="#6BFFFF", padx=30, pady=20)
     total_question_label.grid(row=0, column=2, padx=50)
 
     # Notification Frame
-    notification_frame = tk.LabelFrame(admin_panel_items_frame, bg="#F0F0F0")
-    notification_frame.grid(row=1, column=1)
+    notification_frame = tk.LabelFrame(admin_panel_items_frame, bg="#F0F0F0")#,width=100, height=250)
+    notification_frame.grid(row=1, column=2)
 
-    notification_label = tk.Label(notification_frame, text="Notifications", padx=10, font="Montserrat, 25")
+    notification_label = tk.Label(notification_frame, text="Notifications", padx=10, font="Montserrat, 25",width=10, height=3)
     notification_label.pack()
-    notification_label = tk.Label(notification_frame, text="・ New Report for Question", padx=30, font="Montserrat, 25")
+
+    # notif = mycursor.execute('select * from report') # enable after table creation
+    notification_label = tk.Label(notification_frame, text="No new reports", padx=30, font="Montserrat, 25")
     notification_label.pack(pady=20)
+
+    mycursor.execute("SELECT * FROM players")
+    results = mycursor.fetchall() # Retrieve the query results
+    column_names = [column[0] for column in mycursor.description] # Get the column names
+
+    frame = Frame(admin_panel_items_frame, bg='white')
+    frame.place(x=350, y=460, anchor="center") # to change position of table
+
+    # Create a label for each column and place it in the frame
+    labels = []
+    for i, column_name in enumerate(column_names):
+        label = tk.Label(frame, text=column_name,font=('Montserrat', 15), bg='white')
+        label.grid(row=0, column=i)
+        labels.append(label)
+
+    # Create a label for each row and place it in the frame
+    for i, row in enumerate(results):
+        for j, col in enumerate(row):
+            label = tk.Label(frame, text=col,font=('Montserrat', 12), bg='white')
+            label.grid(row=i+1, column=j)
+            labels.append(label)
 
     
 

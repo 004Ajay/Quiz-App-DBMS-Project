@@ -39,13 +39,13 @@ def welcome_user(username, emai):
 
     def wel_to_cate():
         root.destroy()
-        win()    
+        win(emai)    
 
 
     def qu():
         return()
 
-    mycursor.execute("SELECT * FROM players")
+    """mycursor.execute("SELECT * FROM players")
     results = mycursor.fetchall() # Retrieve the query results
     column_names = [column[0] for column in mycursor.description] # Get the column names
 
@@ -65,7 +65,7 @@ def welcome_user(username, emai):
         for j, col in enumerate(row):
             label = Label(frame, text=col, bg='white')
             label.grid(row=i+1, column=j)
-            labels.append(label)    
+            labels.append(label)"""    
 
     welcome = Label(text=f"Welcome {username}", font=('Montserrat',33,'bold'),bg="white")
     welcome.place(relx=0.5,rely=0.15, anchor=CENTER)

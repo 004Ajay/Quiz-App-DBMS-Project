@@ -26,7 +26,7 @@ mycursor = mydb.cursor(buffered=True)
 #############################################################
 
 global i,data,r1,r2,r3,r4,s,cnt1,rep,cat
-def win():
+def win(emai):
     root = Tk()
     root.title("Gameplay")
     root.geometry("1920x1080")
@@ -79,7 +79,9 @@ def win():
                 user.append(z)
                 # ins = f'INSERT INTO QUIZ_ACTIVITY VALUES(\'ajay@gmail.com\',curdate(),\'{data[qnn-1][7]}\',\'{data[qnn-1][1]}\',\'{z}\',\'{data[qnn-1][6]}\')' # columns: (player_email, date_played, category, question,user_answer,correct_answer) 
                 # mycursor.execute(ins)
-                mycursor.execute(f'insert into quiz_activity(player_email,date_played,category,question,user_answer,correct_answer) values(\'ajay@gmail.com\',curdate(),\'{data[qnn-1][7]}\',\'{data[qnn-1][1]}\',\'{z}\',\'{data[qnn-1][6]}\');')
+                # mycursor.execute(f'insert into quiz_activity(player_email,date_played,category,question,user_answer,correct_answer) values(\'ajay@gmail.com\',curdate(),\'{data[qnn-1][7]}\',\'{data[qnn-1][1]}\',\'{z}\',\'{data[qnn-1][6]}\');')
+                mycursor.execute(f'insert into quiz_activity(player_email,date_played,category,question,user_answer,correct_answer) values(\'{emai}\',curdate(),\'{data[qnn-1][7]}\',\'{data[qnn-1][1]}\',\'{z}\',\'{data[qnn-1][6]}\');')
+                
                 mydb.commit()
                 mydb.reconnect()
                 if qnn==tot_qns: # change no of questions here
