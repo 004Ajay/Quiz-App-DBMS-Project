@@ -116,7 +116,7 @@ def register_page():
         pw1=new_pw.get()
         cpw=new_cpw.get()
         em=new_mail.get()
-        mycursor.execute(f"SELECT * FROM PLAYERS WHERE USRNM = '{name}' OR EMAIL= '{em}'")
+        mycursor.execute(f"SELECT * FROM PLAYERS WHERE USERNAME = '{name}' OR EMAIL= '{em}'")
         if em=="" or name=="" or pw1=="" or cpw=="":
             mb.showinfo("Add all info", "All fields are mandatory")
         elif len(mycursor.fetchall())!= 0:
@@ -175,6 +175,8 @@ def register_page():
 def login_page():
     root.title("Log in page")
 
+    def login_shortkey(event): verify_login()
+
     def verify_login():
         mydb.reconnect()
         mycursor.execute(f"SELECT * FROM PLAYERS WHERE (USERNAME = '{usrnm_email.get()}' OR EMAIL = '{usrnm_email.get()}') AND PASSWORD = '{pw.get()}'")
@@ -211,14 +213,16 @@ def login_page():
     pw = Entry(root, bg='white', show='*',font=('Montserrat',13))
     pw.place(x=625, y=423, width=300, height=30)
     pswd_show(root,pw,eye_img,930,425)
+    
+    button_login = Button(root, text="Log in", font=('Montserrat', 14), command=verify_login)
+    button_login.place(x=703, y=486, width=140, height=40)
+    button_login.bind("<Return>", login_shortkey) # short key for login button
 
     frgt_button = Button(root,text="forgot password?",font=('Montserrat',9,UNDERLINE)\
                       ,fg='blue',bd=0,cursor='hand2',bg='white',command=FrgtPwWin) # FrgtPwWin from forgot password
     frgt_button.place(x=618, y=455, width=120, height=20)#x=777
 
-    button_login = Button(root, text="Log in", font=('Montserrat', 14), command=verify_login)
-    button_login.place(x=703, y=486, width=140, height=40)
-    
+
     label_new_user = Label(root, text="New player? ", font=('Montserrat', 12), bg='white')
     label_new_user.place(x=675, y=570)
     register_button = Button(root,text="Register here",font=('Montserrat',11,UNDERLINE)\
