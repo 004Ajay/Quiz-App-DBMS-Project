@@ -1,3 +1,5 @@
+# CURRENT STARTING FILE
+
 from tkinter import *
 from tkinter import messagebox as mb
 from PIL import ImageTk
@@ -175,7 +177,11 @@ def login_page():
 
     def verify_login():
         mydb.reconnect()
-        mycursor.execute(f"SELECT * FROM PLAYERS WHERE (USRNM = '{usrnm_email.get()}' OR EMAIL = '{usrnm_email.get()}') AND PSWD = '{pw.get()}'")
+        mycursor.execute('SELECT COUNT(DISTINCT(category_name)) FROM CATEGORIES')
+        dta = mycursor.fetchall()
+        print(dta[0][0])
+        mycursor.execute(f"SELECT * FROM PLAYERS WHERE (USERNAME = '{usrnm_email.get()}' OR EMAIL = '{usrnm_email.get()}') AND PASSWORD = '{pw.get()}'")
+        # mycursor.execute(f"SELECT * FROM PLAYERS WHERE USRNM = 'ajay' AND PSWD = 'sjc'") # FOR EASY LOGIN, REMOVE AT LAST
         data=mycursor.fetchall()
         global usrnm,emai
         if usrnm_email.get() == 'Admin' and  pw.get() == 'pass':

@@ -84,8 +84,8 @@ def welcome_user(username, emai):
     b_logout.place(relx=.89,rely=0.016,height=30,width=80)
 
     im = PhotoImage(file="settings.png") 
-    b_settings = Button(root,image=im,height=25, command= settings_icon)
-    b_settings.place(relx=.95,rely=.0149)
+    b_settings = Button(root,image=im, command= settings_icon)
+    b_settings.place(relx=.95,rely=.0149,width=5,height=2)
 
     b_qu = Button(root,text="New Game",font=('Montserrat',15), command=wel_to_cate)
     b_qu.place(x=1000, y=400, width=160, height=50)

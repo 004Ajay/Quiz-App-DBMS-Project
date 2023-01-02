@@ -80,7 +80,7 @@ def win():
                 mycursor.execute(f'insert into quiz_activity(player_email,date_played,category,question,user_answer,correct_answer) values(\'ajay@gmail.com\',curdate(),\'{data[qnn][7]}\',\'{data[qnn][1]}\',\'{z}\',\'{data[qnn][6]}\');')
                 mydb.commit()
                 mydb.reconnect()
-                if qnn==3: # change no of questions here
+                if qnn==tot_qns: # change no of questions here
                     des()
                     result()
                 else:
@@ -93,7 +93,8 @@ def win():
             global data
             mycursor.execute(f'select * from questions where CATE=\'{cat}\' order by rand()')
             data=mycursor.fetchall()
-            print(len(data))
+            global tot_qns
+            tot_qns = len(data)
             qn()
     
     
@@ -104,7 +105,7 @@ def win():
             #score=0
             crt_ans=0
             wrong_ans=0
-            for j in range(0,3): # change no of questions here
+            for j in range(0,tot_qns): # change no of questions here
                 if user[j]==ans[j]:
                     #score+=5
                     crt_ans+=1
@@ -149,7 +150,7 @@ def win():
         def qn():
             global i, data, qnn, r1, r2, r3, r4, s, cnt1, exit_btn, rep
             i=0
-            if qnn<3: # change no of questions here
+            if qnn<tot_qns: # change no of questions here
                 radiovar.set(NONE)
                 ans.append(data[qnn][6])
     
@@ -189,8 +190,11 @@ def win():
     menu = StringVar() # drop-down list text
     menu.set("Select a category") 
 
-    cate = mycursor.execute("SELECT DISTINCT CATE FROM QUESTIONS")
-    categories = [i[0] for i in cate] #mycursor.fetchall()]
+    # cate = mycursor.execute("SELECT DISTINCT CATE FROM QUESTIONS")
+    # categories = [i[0] for i in cate] #mycursor.fetchall()]
+
+    mycursor.execute("SELECT DISTINCT CATE FROM QUESTIONS")
+    categories = [i[0] for i in mycursor.fetchall()]
 
     drop_down = OptionMenu(root, menu, *categories) # Create a dropdown menu
     drop_down.config(font=tkf.Font(family='Montserrat', size=15)) # Montserrat

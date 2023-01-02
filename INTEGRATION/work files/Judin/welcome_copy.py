@@ -73,8 +73,8 @@ join_date.place(x=20,y=719)
 b_logout = Button(root,text ="Log out",font=('Montserrat',12),command=logout)
 b_logout.place(relx=.89,rely=0.016,height=30,width=80)
 
-im = PhotoImage(file="settings.png") 
-b_settings = Button(root,image=im,height=25, command= settings_icons)
+# im = PhotoImage(file="settings.png") image=im,
+b_settings = Button(root,width=5,height=2, command= settings_icons)
 b_settings.place(relx=.95,rely=.0149)
 
 # b_settings = Button(root,height=25, command= settings_icons)

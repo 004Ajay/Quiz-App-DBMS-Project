@@ -21,15 +21,16 @@ mydb = mysql.connector.connect( # connecting to database
 
 mycursor = mydb.cursor(buffered=True)
 
+root = Tk()
+root.geometry("1920x1080")
+root.title("welcome + username")
+root.iconbitmap('assets/Q.ico')
+
+bg = Label(root,bg="white") #background
+bg.place(x=0,y=0,relwidth=1,relheight=1)
 
 def welcome_user(username, emai):
-    root = Tk()
-    root.geometry("1920x1080")
-    root.title("welcome + username")
-    root.iconbitmap('assets/Q.ico')
     
-    bg = Label(root,bg="white") #background
-    bg.place(x=0,y=0,relwidth=1,relheight=1)
 
 
     def logout():
@@ -89,12 +90,5 @@ def welcome_user(username, emai):
     b_qu.place(x=1000, y=400, width=160, height=50)
 
 
-    
-    # root.mainloop()
-    
-    
-# root.bind('<Escape>', exit_window)
-if __name__=='__main__':
-    global username, emai
-    welcome_user(username, emai)
+root.mainloop()
     
