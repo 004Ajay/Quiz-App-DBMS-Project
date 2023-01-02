@@ -255,7 +255,7 @@ def add_user():
     for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
         widget.destroy()
 
-    user_controls()
+    user_controls() # controls for user
 
     add_user_frame = tk.LabelFrame(content_frame, text="Add User", font=admin_panel_item_font, bg='White')
     add_user_frame.pack(side="top")
