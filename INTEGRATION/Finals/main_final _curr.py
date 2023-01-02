@@ -194,7 +194,7 @@ def login_page():
         #mycursor.execute(f"SELECT * FROM PLAYERS WHERE USERNAME = 'ajay' AND PASSWORD = 'sjc'") # FOR EASY LOGIN, REMOVE AT LAST
         data=mycursor.fetchall()
         global usrnm,emai
-        if usrnm_email.get() == 'Admin' and  pw.get() == 'pass':
+        if usrnm_email.get() == 'admin' and  pw.get() == 'pass':
             root.destroy() # destroy current window
             admin_panel() # logging in to admin panel
         elif len(data)> 0:

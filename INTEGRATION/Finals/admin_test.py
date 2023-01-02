@@ -1,26 +1,23 @@
-from tkinter import Frame
+from tkinter import *
 import tkinter as tk
+from tkinter import messagebox as mb
 from PIL import ImageTk, Image
-import mysql.connector
+# import tkinter.font as tkf # for setting font size for drop_down list
+from db_connect import project_db
 
-side_panel_bg = "#3f3f3f"
+
+side_panel_bg = "#3F3F3F"
 side_panel_font = "Montserrat, 15"
 admin_panel_item_font= "Montserrat, 25"
 
-mydb = mysql.connector.connect( # connecting to database
-    host="localhost",
-    user="root",
-    passwd="1234",
-    database="project",
-    auth_plugin='mysql_native_password')
-
+mydb = project_db()
 mycursor = mydb.cursor(buffered=True)
 
 
 
 #################  KEYBOARD SHORTCUTS   ######################
 
-
+# def exit_window(e): root.destroy() # to exit window
 
 ##############################################################
 
@@ -32,9 +29,7 @@ def admin_panel():
     # root.iconbitmap("DBMS-Project/work files/Noyal/Q.ico")
     root.iconbitmap("Q.ico")
 
-    def exit_window(e): root.destroy() # to exit window
-
-
+    global admin_img # for protecting image from garbage collection (admin icon)
 
     def dashboard():
         for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame.
@@ -73,6 +68,8 @@ def admin_panel():
         notification_label = tk.Label(notification_frame, text="No new reports", padx=30, font="Montserrat, 25")
         notification_label.pack(pady=20)
 
+        # FOR SHOWING SQL INSIDE TKINTER WINDOW
+
         mycursor.execute("SELECT * FROM players")
         results = mycursor.fetchall() # Retrieve the query results
         column_names = [column[0] for column in mycursor.description] # Get the column names
@@ -94,7 +91,7 @@ def admin_panel():
                 label.grid(row=i+1, column=j)
                 labels.append(label)
 
-
+    ##################### ADMIN CONTROLS #####################
 
     def question_controls():
         for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame.
@@ -106,16 +103,14 @@ def admin_panel():
         question_controls_frame = tk.Frame(content_frame, bg="white")
         question_controls_frame.pack()
 
-        add_question_button = tk.Button(question_controls_frame, bg="#F0F0F0", text="Add Question", padx=10, pady=5, font="motserrat, 25", command=add_question)
+        add_question_button = tk.Button(question_controls_frame, bg="#F0F0F0", text="Add Question", padx=10, pady=5, font="Montserrat, 25", command=add_question)
         add_question_button.grid(row=0, column=0)
 
-        update_question_button = tk.Button(question_controls_frame, bg="#F0F0F0", text="Update Question", padx=10, pady=5, font="motserrat, 25", command=update_question)
+        update_question_button = tk.Button(question_controls_frame, bg="#F0F0F0", text="Update Question", padx=10, pady=5, font="Montserrat, 25", command=update_question)
         update_question_button.grid(row=0, column=1, padx=200, pady=50)
 
-        delete_question_button = tk.Button(question_controls_frame, bg="#F0F0F0", text="Delete Question", padx=10, pady=5, font="motserrat, 25", command=delete_question)
+        delete_question_button = tk.Button(question_controls_frame, bg="#F0F0F0", text="Delete Question", padx=10, pady=5, font="Montserrat, 25", command=delete_question)
         delete_question_button.grid(row=0, column=2)
-
-
 
     def user_controls():
         for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame.
@@ -127,18 +122,16 @@ def admin_panel():
         user_controls_frame = tk.Frame(content_frame, bg="white")
         user_controls_frame.pack()
 
-        add_user_button = tk.Button(user_controls_frame, bg="#F0F0F0", text="Add User", padx=10, pady=5, font="motserrat, 25")
+        add_user_button = tk.Button(user_controls_frame, bg="#F0F0F0", text="Add User", padx=10, pady=5, font="Montserrat, 25", command=add_user)
         add_user_button.grid(row=0, column=0)
 
-        update_user_button = tk.Button(user_controls_frame, bg="#F0F0F0", text="Update User", padx=10, pady=5, font="motserrat, 25")
+        update_user_button = tk.Button(user_controls_frame, bg="#F0F0F0", text="Update User", padx=10, pady=5, font="Montserrat, 25", command=update_user)
         update_user_button.grid(row=0, column=1, padx=200, pady=50)
 
-        delete_user_button = tk.Button(user_controls_frame, bg="#F0F0F0", text="Delete User", padx=10, pady=5, font="motserrat, 25")
+        delete_user_button = tk.Button(user_controls_frame, bg="#F0F0F0", text="Delete User", padx=10, pady=5, font="Montserrat, 25", command=delete_user)
         delete_user_button.grid(row=0, column=2)
 
-
     """
-
     # TO BE COMPLETED IF WE GET TIME
 
     def statistics():
@@ -152,133 +145,278 @@ def admin_panel():
 
 
 
-    # SUB BUTTON FUNCTION
+    ##################### QUESTION CONTROLS SECTION #############################
+
 
 
     def add_question():
-
         for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
             widget.destroy()
 
+        def add_qn():
+            try:
+                mycursor.execute(f'INSERT INTO QUESTIONS VALUES(NULL,"{ent_qn_title.get()}","{opt_1_ent.get()}","{opt_2_ent.get()}","{opt_3_ent.get()}","{opt_4_ent.get()}","{crt_ans_ent.get()}","{qn_cate_ent.get()}");')
+                mydb.commit()
+                mb.showinfo("Question Added", "Question added successfullty")
+                [widget.delete(0, 'end') for widget in add_qn_frame.winfo_children() if isinstance(widget, tk.Entry)]
+            except:
+                mydb.rollback()
+                mb.showinfo("Error", "Error adding question")
+
         question_controls()
 
-        add_question_frame = tk.LabelFrame(content_frame, text="Add Question", font=admin_panel_item_font)
-        add_question_frame.pack()
+        add_qn_frame = tk.LabelFrame(content_frame, text="Add Question", font=admin_panel_item_font, bg='White')
+        add_qn_frame.pack(side="top")
 
-
-        question_title_label = tk.Label(add_question_frame, text="Enter question title", font=side_panel_font, justify="left")
+        question_title_label = tk.Label(add_qn_frame, text="Enter question title", font=side_panel_font, justify="left",bg='white')
         question_title_label.grid(row=0, column=0, sticky="w", padx=60)
 
-        entry_question_title = tk.Entry(add_question_frame, borderwidth=5, width=160)
-        entry_question_title.grid(row=1, column=0, columnspan=3, padx=60)
+        ent_qn_title = tk.Entry(add_qn_frame, borderwidth=5, width=160)
+        ent_qn_title.grid(row=1, column=0, columnspan=3, padx=60)
 
+        opt_1_lbl = tk.Label(add_qn_frame, text="Option 1", font=side_panel_font,bg='white')
+        opt_1_lbl.grid(row=2, column=0, sticky="w", pady=15, padx=60)
+        opt_1_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
+        opt_1_ent.grid(row=3, column=0, sticky="w", padx=60)
+        opt_2_lbl = tk.Label(add_qn_frame, text="Option 2", font=side_panel_font,bg='white')
+        opt_2_lbl.grid(row=2, column=2, sticky="w", padx=60)
+        opt_2_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
+        opt_2_ent.grid(row=3, column=2, sticky="w", pady=15, padx=60)
+        opt_3_lbl = tk.Label(add_qn_frame, text="Option 3", font=side_panel_font,bg='white')
+        opt_3_lbl.grid(row=4, column=0, sticky="w", padx=60)
+        opt_3_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
+        opt_3_ent.grid(row=5, column=0, sticky="w", pady=15, padx=60)
+        opt_4_lbl = tk.Label(add_qn_frame, text="Option 4", font=side_panel_font,bg='white')
+        opt_4_lbl.grid(row=4, column=2, sticky="w", padx=60)
+        opt_4_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
+        opt_4_ent.grid(row=5, column=2, sticky="w", padx=60)
 
-        option_1_label = tk.Label(add_question_frame, text="Option 1", font=side_panel_font)
-        option_1_label.grid(row=2, column=0, sticky="w", pady=15, padx=60)
-        option_1_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-        option_1_entry.grid(row=3, column=0, sticky="w", padx=60)
+        crt_ans_lbl = tk.Label(add_qn_frame, text="Correct Answer", font=side_panel_font,bg='white')
+        crt_ans_lbl.grid(row=6, column=0, sticky="w", padx=60)
+        crt_ans_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
+        crt_ans_ent.grid(row=7, column=0, sticky="w", pady=15, padx=60)
 
+        qn_cate_lbl = tk.Label(add_qn_frame, text="Question Category", font=side_panel_font,bg='white')
+        qn_cate_lbl.grid(row=6, column=2, sticky="w", padx=60)
+        qn_cate_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
+        qn_cate_ent.grid(row=7, column=2, sticky="w", padx=60)
 
-        option_3_label = tk.Label(add_question_frame, text="Option 3", font=side_panel_font)
-        option_3_label.grid(row=4, column=0, sticky="w", padx=60)
-        option_3_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-        option_3_entry.grid(row=5, column=0, sticky="w", pady=15, padx=60)
-
-        correct_answer_label = tk.Label(add_question_frame, text="Correct Answer", font=side_panel_font)
-        correct_answer_label.grid(row=6, column=0, sticky="w", padx=60)
-        correct_answer_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-        correct_answer_entry.grid(row=7, column=0, sticky="w", pady=15, padx=60)
-
-        option_2_label = tk.Label(add_question_frame, text="Option 2", font=side_panel_font)
-        option_2_label.grid(row=2, column=2, sticky="w", padx=60)
-        option_2_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-        option_2_entry.grid(row=3, column=2, sticky="w", pady=15, padx=60)
-
-
-        option_4_label = tk.Label(add_question_frame, text="Option 4", font=side_panel_font)
-        option_4_label.grid(row=4, column=2, sticky="w", padx=60)
-        option_4_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-        option_4_entry.grid(row=5, column=2, sticky="w", padx=60)
-
-        Question_Category_label = tk.Label(add_question_frame, text="Question Category", font=side_panel_font)
-        Question_Category_label.grid(row=6, column=2, sticky="w", padx=60)
-        Question_Category_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-        Question_Category_entry.grid(row=7, column=2, sticky="w", padx=60)
-
-        add_question_button = tk.Button(add_question_frame, text="Add Question", font="motserrat, 25")
-        add_question_button.grid(column=1, pady=30)
+        add_qn_btn = tk.Button(add_qn_frame, text="Add Question", font="Montserrat, 25", command=add_qn)
+        add_qn_btn.grid(column=1, pady=30)
 
 
     def update_question():
         for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
             widget.destroy()
 
+        def update_qn():
+            """
+            try:
+                mycursor.execute(f'INSERT INTO QUESTIONS VALUES(NULL,"{ent_qn_title.get()}","{opt_1_ent.get()}","{opt_2_ent.get()}","{opt_3_ent.get()}","{opt_4_ent.get()}","{crt_ans_ent.get()}","{qn_cate_ent.get()}");')
+                mydb.commit()
+                mb.showinfo("Question Added", "Question added successfullty")
+                [widget.delete(0, 'end') for widget in update_qn_frame.winfo_children() if isinstance(widget, tk.Entry)]
+            except:
+                mb.showinfo("Error", "Error updating question")
+                mydb.rollback()
+            """ 
+
         question_controls()
-        add_question_frame = tk.LabelFrame(content_frame, text="Update Question", font=admin_panel_item_font)
-        add_question_frame.pack()
 
-        question_title_label = tk.Label(add_question_frame, text="Question title", font=side_panel_font, justify="left")
-        question_title_label.grid(row=0, column=0, sticky="w", padx=60)
+        update_qn_frame = tk.LabelFrame(content_frame, text="Update Question", font=admin_panel_item_font,bg='White')
+        update_qn_frame.pack(side=TOP)
 
-        entry_question_title = tk.Entry(add_question_frame, borderwidth=5, width=160)
-        entry_question_title.grid(row=1, column=0, columnspan=3, padx=60)
+        qn_title_lbl = tk.Label(update_qn_frame, text="Edit Question title", font=side_panel_font, justify="left",bg='White')
+        qn_title_lbl.grid(row=0, column=0, sticky="w", padx=40)
 
+        ent_qn_title = tk.Entry(update_qn_frame, borderwidth=5, width=160)
+        ent_qn_title.grid(row=1, column=0, columnspan=4, padx=60)
 
-        option_1_label = tk.Label(add_question_frame, text="Option 1", font=side_panel_font)
-        option_1_label.grid(row=2, column=0, sticky="w", pady=15, padx=60)
-        option_1_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-        option_1_entry.grid(row=3, column=0, sticky="w", padx=60)
+        opt_1_lbl = tk.Label(update_qn_frame, text="Edit Option 1", font=side_panel_font,bg='White')
+        opt_1_lbl.grid(row=2, column=0, sticky="w", pady=15, padx=60)
+        opt_1_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+        opt_1_ent.grid(row=3, column=0, sticky="w", padx=60)
+        opt_2_lbl = tk.Label(update_qn_frame, text="Edit Option 2", font=side_panel_font,bg='white')
+        opt_2_lbl.grid(row=2, column=2, sticky="w", padx=60)
+        opt_2_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+        opt_2_ent.grid(row=3, column=2, sticky="w", pady=15, padx=60)
+        opt_3_lbl = tk.Label(update_qn_frame, text="Edit Option 3", font=side_panel_font,bg='white')
+        opt_3_lbl.grid(row=4, column=0, sticky="w", padx=60)
+        opt_3_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+        opt_3_ent.grid(row=5, column=0, sticky="w", pady=15, padx=60)
+        opt_4_lbl = tk.Label(update_qn_frame, text="Edit Option 4", font=side_panel_font,bg='white')
+        opt_4_lbl.grid(row=4, column=2, sticky="w", padx=60)
+        opt_4_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+        opt_4_ent.grid(row=5, column=2, sticky="w", padx=60)
 
+        crt_ans_lbl = tk.Label(update_qn_frame, text="Edit Correct Answer", font=side_panel_font,bg='white')
+        crt_ans_lbl.grid(row=6, column=0, sticky="w", padx=60)
+        crt_ans_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+        crt_ans_ent.grid(row=7, column=0, sticky="w", pady=15, padx=60)
 
-        option_3_label = tk.Label(add_question_frame, text="Option 3", font=side_panel_font)
-        option_3_label.grid(row=4, column=0, sticky="w", padx=60)
-        option_3_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-        option_3_entry.grid(row=5, column=0, sticky="w", pady=15, padx=60)
+        qn_cate_lbl = tk.Label(update_qn_frame, text="Edit Question Category", font=side_panel_font,bg='white')
+        qn_cate_lbl.grid(row=6, column=2, sticky="w", padx=60)
+        qn_cate_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+        qn_cate_ent.grid(row=7, column=2, sticky="w", padx=60)
 
-        correct_answer_label = tk.Label(add_question_frame, text="Correct Answer", font=side_panel_font)
-        correct_answer_label.grid(row=6, column=0, sticky="w", padx=60)
-        correct_answer_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-        correct_answer_entry.grid(row=7, column=0, sticky="w", pady=15, padx=60)
-
-        option_2_label = tk.Label(add_question_frame, text="Option 2", font=side_panel_font)
-        option_2_label.grid(row=2, column=2, sticky="w", padx=60)
-        option_2_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-        option_2_entry.grid(row=3, column=2, sticky="w", pady=15, padx=60)
-
-
-        option_4_label = tk.Label(add_question_frame, text="Option 4", font=side_panel_font)
-        option_4_label.grid(row=4, column=2, sticky="w", padx=60)
-        option_4_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-        option_4_entry.grid(row=5, column=2, sticky="w", padx=60)
-
-        Question_Category_label = tk.Label(add_question_frame, text="Question Category", font=side_panel_font)
-        Question_Category_label.grid(row=6, column=2, sticky="w", padx=60)
-        Question_Category_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-        Question_Category_entry.grid(row=7, column=2, sticky="w", padx=60)
-
-        add_question_button = tk.Button(add_question_frame, text="Add Question", font="motserrat, 25")
-        add_question_button.grid(column=1, pady=30)
+        update_qn_btn = tk.Button(update_qn_frame, text="Update Question", font="Montserrat, 25", command=update_qn)
+        update_qn_btn.grid(column=1, pady=30)
 
 
     def delete_question():
-        pass
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+            widget.destroy()
+
+        def del_qn():
+            try:
+                mycursor.execute(f"SELECT Q_NO FROM QUESTIONS WHERE QUESTION = '{qn_menu.get()}'") # to get question number from question
+                qn_no = mycursor.fetchall()[0][0] # to take question number from '[(33,)]' list & tuple
+                mycursor.execute(f"DELETE FROM QUESTIONS WHERE Q_NO = {qn_no}") # deleting question using question number(primary key)
+                mydb.commit()
+                mb.showinfo("Question Deleted", "Question deleted successfullty")
+            except:
+                mb.showinfo("Error", "Error deleting the question")
+                mydb.rollback()    
+
+        question_controls()
+
+        # del_qn_frame = tk.Frame(content_frame)
+        # del_qn_frame.pack()
+
+        del_qn_frame = tk.LabelFrame(root,bg='White')
+        del_qn_frame.pack()
+
+        def show_qns():
+            mydb.reconnect() # To refresh the cursor buffer
+
+            global qn_menu
+
+            qn_menu = StringVar() # drop-down list of questions under selected category
+            qn_menu.set("Select the question to delete")
+
+            mycursor.execute(f"SELECT QUESTION FROM QUESTIONS WHERE CATE_NAME = '{cate_menu.get()}'")
+            qns_lst = [i[0] for i in mycursor.fetchall()]
+
+            qn_drop_down = OptionMenu(root, qn_menu, *qns_lst) # Create a dropdown menu for questions of selected category
+            qn_drop_down.config(font=side_panel_font)
+            qn_dd_list = root.nametowidget(qn_drop_down.menuname)  # Get menu widget.
+            qn_dd_list.config(font=side_panel_font)
+            qn_drop_down.place(x=450, y=530, width=850, height=40)
+
+
+        cate_menu = tk.StringVar() # drop-down list of categories
+        cate_menu.set("Select Question Category")     
+
+        mycursor.execute("SELECT DISTINCT CATE_NAME FROM QUESTIONS")
+        categories = [i[0] for i in mycursor.fetchall()]
+
+        cate_drop_down = tk.OptionMenu(root, cate_menu, *categories) # Create a dropdown menu
+        cate_drop_down.config(font=side_panel_font) # tkf.Font(family='Montserrat', size=15))
+        cate_dd_list = root.nametowidget(cate_drop_down.menuname)  # Get menu widget.
+        cate_dd_list.config(font=side_panel_font) # tkf.Font(family='Montserrat', size=12))  # Set the dropdown menu's font
+        cate_drop_down.place(x=680, y=350, width=400, height=40)
+
+        show_qn_btn = Button(root, text="Show Question",font=side_panel_font, command = show_qns) # add command function
+        show_qn_btn.place(x=800, y=430, width=170, height=40)
+
+        del_button = tk.Button(root, text="Delete Question",font=side_panel_font, command=del_qn) # , command = delete_question) # add command function
+        del_button.place(x=800, y=610, width=170, height=40)
 
 
 
+    ##################### USER CONTROLS SECTION #############################
+
+    def add_user():
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+            widget.destroy()
+
+        user_controls()
+
+        add_user_frame = tk.LabelFrame(content_frame, text="Add User Profile", font=admin_panel_item_font, bg='White')
+        add_user_frame.pack(side="top")
+
+        username_label = tk.Label(add_user_frame, text="Enter Username", font=side_panel_font, justify="left", bg='White')
+        username_label.grid(row=1, column=0, sticky="w", padx=60)
+        ent_user_title = tk.Entry(add_user_frame, borderwidth=5, width=50)
+        ent_user_title.grid(row=2, column=0, sticky="w", padx=60)
+
+        email_label = tk.Label(add_user_frame, text="Enter Email", font=side_panel_font, bg='White')
+        email_label.grid(row=1, column=1, sticky="w", pady=15, padx=60)
+        email_ent = tk.Entry(add_user_frame, borderwidth=5, width=50)
+        email_ent.grid(row=2, column=1, sticky="w", padx=60)
+
+        pass_label = tk.Label(add_user_frame, text="Enter Password", font=side_panel_font, bg='White')
+        pass_label.grid(row=3, column=0, sticky="w", pady=15, padx=60)
+        pass_ent = tk.Entry(add_user_frame, borderwidth=5, width=50)
+        pass_ent.grid(row=4, column=0, sticky="w", padx=60)
+
+        conf_pass_label = tk.Label(add_user_frame, text="Confirm Password", font=side_panel_font, bg='White')
+        conf_pass_label.grid(row=3, column=1, sticky="w", pady=15, padx=60)
+        conf_pass_ent = tk.Entry(add_user_frame, borderwidth=5, width=50)
+        conf_pass_ent.grid(row=4, column=1, sticky="w", padx=60)
+
+        clear_btn = tk.Button(add_user_frame, text="Clear", font="Montserrat, 25")
+        clear_btn.grid(row=6,column=0,padx=20,pady=20)
+
+        add_btn = tk.Button(add_user_frame, text="Add User", font="Montserrat, 25")
+        add_btn.grid(row=6,column=1,padx=20,pady=20)
 
 
-    # Admin image, used in side panel.
+    def update_user():
+
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+            widget.destroy()
+
+        user_controls()
+
+        update_user_frame = tk.LabelFrame(content_frame, text="Update User Profile", font=admin_panel_item_font, bg='White')
+        update_user_frame.pack(side="top")
+
+        email_label = tk.Label(update_user_frame, text="E-mail", font=side_panel_font, bg='White')
+        email_label.grid(row=1, column=0, sticky="w", pady=15, padx=60)
+        email_ent = tk.Entry(update_user_frame, borderwidth=5, width=50)
+        email_ent.grid(row=1, column=1, sticky="w", padx=60)
+
+        username_label = tk.Label(update_user_frame, text="Username", font=side_panel_font, justify="left", bg='White')
+        username_label.grid(row=2, column=0, sticky="w", padx=60)
+        ent_user_title = tk.Entry(update_user_frame, borderwidth=5, width=50)
+        ent_user_title.grid(row=2, column=1, sticky="w", padx=60)
+
+        bio_label = tk.Label(update_user_frame, text="Biography", font=side_panel_font, justify="left", bg='White')
+        bio_label.grid(row=3, column=0, sticky="w", pady=25, padx=60)
+        ent_bio = tk.Entry(update_user_frame, borderwidth=5, width=50)
+        ent_bio.place(x=275,y=120,height=75, width=310)
+
+        change_btn = tk.Button(update_user_frame, text="Save Changes", font="Montserrat, 25")
+        change_btn.grid(row=5,column=1,padx=90, pady=80)
+
+    def delete_user():
+
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+            widget.destroy()
+
+        user_controls()
+
+        delete_user_frame = tk.LabelFrame(content_frame, text="Delete User Profile", font=admin_panel_item_font, bg='White')
+        delete_user_frame.pack(side="top")
+
+        email_label = tk.Label(delete_user_frame, text="Enter Email", font=side_panel_font, bg='White')
+        email_label.grid(row=1, column=0, sticky="w", pady=15, padx=60)
+        email_ent = tk.Entry(delete_user_frame, borderwidth=5, width=50)
+        email_ent.grid(row=1, column=1, sticky="w", padx=60)
+
+        change_btn = tk.Button(delete_user_frame, text="Delete User", font="Montserrat, 25")
+        change_btn.grid(row=3,column=1,padx=90, pady=80)
+
+
     # admin_img = ImageTk.PhotoImage(Image.open("DBMS-Project/work files/Noyal/admin_white.png"))
-    admin_img = ImageTk.PhotoImage(Image.open("admin_white.png"))
-
-
+    admin_img = ImageTk.PhotoImage(Image.open("admin_white.png")) # Admin image, used in side panel.
+    
 
 
     # Side Pannel
     side_panel = tk.Frame(root, bg=side_panel_bg,)
     side_panel.pack(side="left", fill="y")
-
-
 
     # Admin main icon label
     admin_icon_label = tk.Label(side_panel, image=admin_img, bg=side_panel_bg)
@@ -293,12 +431,15 @@ def admin_panel():
     user_controls_button = tk.Button(side_panel, text="User Controls", font=side_panel_font, bg=side_panel_bg, foreground="white", relief="flat", activebackground=side_panel_bg, command=user_controls)
     user_controls_button.pack(padx=50)
 
+    """
+    # WE CAN DO THIS IF WE GET TIME
+
     user_reports_button = tk.Button(side_panel, text="User Reports", font=side_panel_font, bg=side_panel_bg, foreground="white", relief="flat", activebackground=side_panel_bg) # , command=user_reports)
     user_reports_button.pack(padx=50, pady=20)
 
     statistics_button = tk.Button(side_panel, text="Statistics", font=side_panel_font, bg=side_panel_bg, foreground="white", relief="flat", activebackground=side_panel_bg)# , command=statistics)
     statistics_button.pack(padx=50, pady=20)
-
+    """
 
     # Content Frame
     content_frame = tk.Frame(root, bg="white")
@@ -306,5 +447,5 @@ def admin_panel():
 
     dashboard()
 
-    root.bind('<Escape>', exit_window)
-# root.mainloop()
+    # root.bind('<Escape>', exit_window)
+    # root.mainloop()

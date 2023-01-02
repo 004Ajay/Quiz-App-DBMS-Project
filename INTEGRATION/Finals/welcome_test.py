@@ -25,8 +25,10 @@ mycursor = mydb.cursor(buffered=True)
 def welcome_user(username, emai):
     root = Tk()
     root.geometry("1920x1080")
-    root.title("welcome + username")
+    root.title(f"Welcome {username}")
     root.iconbitmap('assets/Q.ico')
+
+    global settings_icon_img
     
     bg = Label(root,bg="white") #background
     bg.place(x=0,y=0,relwidth=1,relheight=1)
@@ -35,7 +37,7 @@ def welcome_user(username, emai):
 
 
     def logout():
-        return()
+        root.destroy()
 
     def wel_to_cate():
         root.destroy()
@@ -83,9 +85,10 @@ def welcome_user(username, emai):
     b_logout = Button(root,text ="Log out",font=('Montserrat',12),command=logout)
     b_logout.place(relx=.89,rely=0.016,height=30,width=80)
 
-    im = PhotoImage(file="settings.png") 
-    b_settings = Button(root,image=im, command= settings_icon)
-    b_settings.place(relx=.95,rely=.0149,width=5,height=2)
+    settings_icon_img = PhotoImage(file="settings.png") 
+    b_settings = Button(root,image=settings_icon_img, command= settings_icon)
+    # b_settings.place(relx=.95,rely=.0149,width=5,height=2)
+    b_settings.place(relx=.95,rely=.0149)
 
     b_qu = Button(root,text="New Game",font=('Montserrat',15), command=wel_to_cate)
     b_qu.place(x=1000, y=400, width=160, height=50)

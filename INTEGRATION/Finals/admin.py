@@ -1,5 +1,6 @@
 from tkinter import *
 import tkinter as tk
+from tkinter import messagebox as mb
 from PIL import ImageTk, Image
 # import tkinter.font as tkf # for setting font size for drop_down list
 from db_connect import project_db
@@ -86,13 +87,7 @@ def dashboard():
             label.grid(row=i+1, column=j)
             labels.append(label)
 
-def des():
-    cate_drop_down.destroy()
-    show_qn_btn.destroy()
-    del_button.destroy() 
-    qn_drop_down.destroy()
-
-
+##################### ADMIN CONTROLS #####################
 
 def question_controls():
     for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame.
@@ -113,8 +108,6 @@ def question_controls():
     delete_question_button = tk.Button(question_controls_frame, bg="#F0F0F0", text="Delete Question", padx=10, pady=5, font="Montserrat, 25", command=delete_question)
     delete_question_button.grid(row=0, column=2)
 
-
-
 def user_controls():
     for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame.
         widget.destroy()
@@ -134,7 +127,6 @@ def user_controls():
     delete_user_button = tk.Button(user_controls_frame, bg="#F0F0F0", text="Delete User", padx=10, pady=5, font="Montserrat, 25", command=delete_user)
     delete_user_button.grid(row=0, column=2)
 
-
 """
 # TO BE COMPLETED IF WE GET TIME
 
@@ -151,15 +143,21 @@ def user_reports():
 
 ##################### QUESTION CONTROLS SECTION #############################
 
+
+
 def add_question():
-
-    
-
-    frm = tk.Frame(content_frame, bg='red')
-    frm.pack(expand=True)
-
     for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
         widget.destroy()
+
+    def add_qn():
+        try:
+            mycursor.execute(f'INSERT INTO QUESTIONS VALUES(NULL,"{ent_qn_title.get()}","{opt_1_ent.get()}","{opt_2_ent.get()}","{opt_3_ent.get()}","{opt_4_ent.get()}","{crt_ans_ent.get()}","{qn_cate_ent.get()}");')
+            mydb.commit()
+            mb.showinfo("Question Added", "Question added successfullty")
+            [widget.delete(0, 'end') for widget in add_qn_frame.winfo_children() if isinstance(widget, tk.Entry)]
+        except:
+            mydb.rollback()
+            mb.showinfo("Error", "Error adding question")
 
     question_controls()
 
@@ -199,25 +197,36 @@ def add_question():
     qn_cate_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
     qn_cate_ent.grid(row=7, column=2, sticky="w", padx=60)
 
-    add_qn_btn = tk.Button(add_qn_frame, text="Add Question", font="Montserrat, 25")
+    add_qn_btn = tk.Button(add_qn_frame, text="Add Question", font="Montserrat, 25", command=add_qn)
     add_qn_btn.grid(column=1, pady=30)
 
 
 def update_question():
-    # des()
     for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
         widget.destroy()
+
+    def update_qn():
+        """
+        try:
+            mycursor.execute(f'INSERT INTO QUESTIONS VALUES(NULL,"{ent_qn_title.get()}","{opt_1_ent.get()}","{opt_2_ent.get()}","{opt_3_ent.get()}","{opt_4_ent.get()}","{crt_ans_ent.get()}","{qn_cate_ent.get()}");')
+            mydb.commit()
+            mb.showinfo("Question Added", "Question added successfullty")
+            [widget.delete(0, 'end') for widget in update_qn_frame.winfo_children() if isinstance(widget, tk.Entry)]
+        except:
+            mb.showinfo("Error", "Error updating question")
+            mydb.rollback()
+        """ 
 
     question_controls()
 
     update_qn_frame = tk.LabelFrame(content_frame, text="Update Question", font=admin_panel_item_font,bg='White')
-    update_qn_frame.pack()
+    update_qn_frame.pack(side=TOP)
 
     qn_title_lbl = tk.Label(update_qn_frame, text="Edit Question title", font=side_panel_font, justify="left",bg='White')
     qn_title_lbl.grid(row=0, column=0, sticky="w", padx=40)
 
-    entry_question_title = tk.Entry(update_qn_frame, borderwidth=5, width=160)
-    entry_question_title.grid(row=1, column=0, columnspan=4, padx=60)
+    ent_qn_title = tk.Entry(update_qn_frame, borderwidth=5, width=160)
+    ent_qn_title.grid(row=1, column=0, columnspan=4, padx=60)
 
     opt_1_lbl = tk.Label(update_qn_frame, text="Edit Option 1", font=side_panel_font,bg='White')
     opt_1_lbl.grid(row=2, column=0, sticky="w", pady=15, padx=60)
@@ -246,24 +255,37 @@ def update_question():
     qn_cate_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
     qn_cate_ent.grid(row=7, column=2, sticky="w", padx=60)
 
-    add_qn_btn = tk.Button(update_qn_frame, text="Update Question", font="Montserrat, 25")
-    add_qn_btn.grid(column=1, pady=30)
+    update_qn_btn = tk.Button(update_qn_frame, text="Update Question", font="Montserrat, 25", command=update_qn)
+    update_qn_btn.grid(column=1, pady=30)
 
 
 def delete_question():
     for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
         widget.destroy()
 
+    def del_qn():
+        try:
+            mycursor.execute(f"SELECT Q_NO FROM QUESTIONS WHERE QUESTION = '{qn_menu.get()}'") # to get question number from question
+            qn_no = mycursor.fetchall()[0][0] # to take question number from '[(33,)]' list & tuple
+            mycursor.execute(f"DELETE FROM QUESTIONS WHERE Q_NO = {qn_no}") # deleting question using question number(primary key)
+            mydb.commit()
+            mb.showinfo("Question Deleted", "Question deleted successfullty")
+        except:
+            mb.showinfo("Error", "Error deleting the question")
+            mydb.rollback()    
+
     question_controls()
 
-    global cate_drop_down, show_qn_btn, del_button
+    # del_qn_frame = tk.Frame(content_frame)
+    # del_qn_frame.pack()
 
-    del_qn_frame = tk.Frame(content_frame)
+    del_qn_frame = tk.LabelFrame(root,bg='White')
     del_qn_frame.pack()
 
     def show_qns():
-        global qn_drop_down
         mydb.reconnect() # To refresh the cursor buffer
+
+        global qn_menu
 
         qn_menu = StringVar() # drop-down list of questions under selected category
         qn_menu.set("Select the question to delete")
@@ -293,7 +315,7 @@ def delete_question():
     show_qn_btn = Button(root, text="Show Question",font=side_panel_font, command = show_qns) # add command function
     show_qn_btn.place(x=800, y=430, width=170, height=40)
 
-    del_button = tk.Button(root, text="Delete Question",font=side_panel_font) # , command = delete_question) # add command function
+    del_button = tk.Button(root, text="Delete Question",font=side_panel_font, command=del_qn) # , command = delete_question) # add command function
     del_button.place(x=800, y=610, width=170, height=40)
     
 
