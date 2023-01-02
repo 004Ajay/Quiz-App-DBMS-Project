@@ -111,6 +111,11 @@ def welcome_user(username, emai):
 def register_page():
     root.title("Signup Page")
 
+    def signup_btn_shortkey(event): sign_up()
+    def login_link_shortkey(event): login_page()
+
+    
+
     def sign_up():
         name=new_name.get()
         pw1=new_pw.get()
@@ -152,23 +157,26 @@ def register_page():
     label_pw.place(x=585, y=380)
     new_pw = Entry(root, show='*',font=('Montserrat',13),bg='white')
     new_pw.place(x=780, y=380, width=180, height=30)
-    pswd_show(root,new_pw,eye_img,960,383)
 
     label_confirm_pw = Label(root, text="Confirm Password",font=('Montserrat',15),bg='white')
     label_confirm_pw.place(x=585, y=420)
     new_cpw = Entry(root, show='*',font=('Montserrat',13),bg='white')
     new_cpw.place(x=780, y=420, width=180, height=30)
-    pswd_show(root,new_cpw,eye_img,960,423)
-
+    
     button_signup = Button(root, text="Sign Up",font=('Montserrat',17),command=sign_up)
     button_signup.place(x=676, y=480, width=200, height=50)
+    button_signup.bind("<Return>", signup_btn_shortkey) # short key for sign up button
 
     account=Label(root,text='Already have an account?',font=('Montserrat',10),bg='white')
     account.place(x=655,y=575)
 
-    login_btn=Button(root,text='Log in',font=('Montserrat',11, UNDERLINE),fg='blue',bd=0,cursor='hand2',bg='white',command=login_page)
-    login_btn.place(x=830,y=568) # ,width=100,height=25)
-    
+    login_link=Button(root,text='Log in',font=('Montserrat',11, UNDERLINE),fg='blue',bd=0,cursor='hand2',bg='white',command=login_page)
+    login_link.place(x=830,y=568) # ,width=100,height=25)
+    login_link.bind("<Return>", login_link_shortkey) # short key for login link in sign up page
+
+    pswd_show(root,new_pw,eye_img,960,383)  # moved to here for better TAB key travel
+    pswd_show(root,new_cpw,eye_img,960,423)
+
 
 #################   LOGIN_PAGE   ############################
 
@@ -176,6 +184,8 @@ def login_page():
     root.title("Log in page")
 
     def login_shortkey(event): verify_login()
+    def frgt_pw_shortkey(event): FrgtPwWin()
+    def reg_btn_shortkey(event): register_page()
 
     def verify_login():
         mydb.reconnect()
@@ -212,22 +222,24 @@ def login_page():
     
     pw = Entry(root, bg='white', show='*',font=('Montserrat',13))
     pw.place(x=625, y=423, width=300, height=30)
-    pswd_show(root,pw,eye_img,930,425)
-    
+
     button_login = Button(root, text="Log in", font=('Montserrat', 14), command=verify_login)
     button_login.place(x=703, y=486, width=140, height=40)
     button_login.bind("<Return>", login_shortkey) # short key for login button
 
+    pswd_show(root,pw,eye_img,930,425) # moved to here for better TAB key travel
+
     frgt_button = Button(root,text="forgot password?",font=('Montserrat',9,UNDERLINE)\
                       ,fg='blue',bd=0,cursor='hand2',bg='white',command=FrgtPwWin) # FrgtPwWin from forgot password
     frgt_button.place(x=618, y=455, width=120, height=20)#x=777
-
+    frgt_button.bind("<Return>", frgt_pw_shortkey) # short key for forgot password button
 
     label_new_user = Label(root, text="New player? ", font=('Montserrat', 12), bg='white')
     label_new_user.place(x=675, y=570)
     register_button = Button(root,text="Register here",font=('Montserrat',11,UNDERLINE)\
                       ,fg='blue',bd=0,cursor='hand2',bg='white',command=register_page) # bd is border
-    register_button.place(x=777, y=567, width=125, height=35)
+    register_button.place(x=778, y=573, width=105, height=20)
+    register_button.bind("<Return>", reg_btn_shortkey) # short key for register button
 
 root.bind('<Escape>', exit_window)
 login_page()
