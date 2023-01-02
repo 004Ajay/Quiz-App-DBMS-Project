@@ -77,7 +77,9 @@ def win():
                 des()
                 z=radiovar.get()
                 user.append(z)
-                mycursor.execute(f'insert into quiz_activity(player_email,date_played,category,question,user_answer,correct_answer) values(\'ajay@gmail.com\',curdate(),\'{data[qnn][7]}\',\'{data[qnn][1]}\',\'{z}\',\'{data[qnn][6]}\');')
+                # ins = f'INSERT INTO QUIZ_ACTIVITY VALUES(\'ajay@gmail.com\',curdate(),\'{data[qnn-1][7]}\',\'{data[qnn-1][1]}\',\'{z}\',\'{data[qnn-1][6]}\')' # columns: (player_email, date_played, category, question,user_answer,correct_answer) 
+                # mycursor.execute(ins)
+                mycursor.execute(f'insert into quiz_activity(player_email,date_played,category,question,user_answer,correct_answer) values(\'ajay@gmail.com\',curdate(),\'{data[qnn-1][7]}\',\'{data[qnn-1][1]}\',\'{z}\',\'{data[qnn-1][6]}\');')
                 mydb.commit()
                 mydb.reconnect()
                 if qnn==tot_qns: # change no of questions here
@@ -91,7 +93,7 @@ def win():
     
         def ques():
             global data
-            mycursor.execute(f'select * from questions where CATE=\'{cat}\' order by rand()')
+            mycursor.execute(f'SELECT * FROM QUESTIONS WHERE CATE_NAME=\'{cat}\' ORDER BY RAND()')
             data=mycursor.fetchall()
             global tot_qns
             tot_qns = len(data)
@@ -193,7 +195,7 @@ def win():
     # cate = mycursor.execute("SELECT DISTINCT CATE FROM QUESTIONS")
     # categories = [i[0] for i in cate] #mycursor.fetchall()]
 
-    mycursor.execute("SELECT DISTINCT CATE FROM QUESTIONS")
+    mycursor.execute("SELECT DISTINCT CATE_NAME FROM QUESTIONS")
     categories = [i[0] for i in mycursor.fetchall()]
 
     drop_down = OptionMenu(root, menu, *categories) # Create a dropdown menu

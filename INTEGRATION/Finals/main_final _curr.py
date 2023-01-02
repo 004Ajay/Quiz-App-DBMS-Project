@@ -177,11 +177,8 @@ def login_page():
 
     def verify_login():
         mydb.reconnect()
-        mycursor.execute('SELECT COUNT(DISTINCT(category_name)) FROM CATEGORIES')
-        dta = mycursor.fetchall()
-        print(dta[0][0])
         mycursor.execute(f"SELECT * FROM PLAYERS WHERE (USERNAME = '{usrnm_email.get()}' OR EMAIL = '{usrnm_email.get()}') AND PASSWORD = '{pw.get()}'")
-        # mycursor.execute(f"SELECT * FROM PLAYERS WHERE USRNM = 'ajay' AND PSWD = 'sjc'") # FOR EASY LOGIN, REMOVE AT LAST
+        #mycursor.execute(f"SELECT * FROM PLAYERS WHERE USERNAME = 'ajay' AND PASSWORD = 'sjc'") # FOR EASY LOGIN, REMOVE AT LAST
         data=mycursor.fetchall()
         global usrnm,emai
         if usrnm_email.get() == 'Admin' and  pw.get() == 'pass':
