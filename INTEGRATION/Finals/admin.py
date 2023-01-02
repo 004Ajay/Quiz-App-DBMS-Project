@@ -1,19 +1,14 @@
 from tkinter import Frame
 import tkinter as tk
 from PIL import ImageTk, Image
-import mysql.connector
+from db_connect import project_db
 
-side_panel_bg = "#3f3f3f"
+
+side_panel_bg = "#3F3F3F"
 side_panel_font = "Montserrat, 15"
 admin_panel_item_font= "Montserrat, 25"
 
-mydb = mysql.connector.connect( # connecting to database
-    host="localhost",
-    user="root",
-    passwd="1234",
-    database="project",
-    auth_plugin='mysql_native_password')
-
+mydb = project_db()
 mycursor = mydb.cursor(buffered=True)
 
 root = tk.Tk()
@@ -67,6 +62,8 @@ def dashboard():
     notification_label = tk.Label(notification_frame, text="No new reports", padx=30, font="Montserrat, 25")
     notification_label.pack(pady=20)
 
+    # FOR SHOWING SQL INSIDE TKINTER WINDOW
+
     mycursor.execute("SELECT * FROM players")
     results = mycursor.fetchall() # Retrieve the query results
     column_names = [column[0] for column in mycursor.description] # Get the column names
@@ -88,6 +85,8 @@ def dashboard():
             label.grid(row=i+1, column=j)
             labels.append(label)
 
+def add_qn():
+    add_question()
     
 
 def question_controls():
@@ -100,7 +99,7 @@ def question_controls():
     question_controls_frame = tk.Frame(content_frame, bg="white")
     question_controls_frame.pack()
 
-    add_question_button = tk.Button(question_controls_frame, bg="#F0F0F0", text="Add Question", padx=10, pady=5, font="motserrat, 25", command=add_question)
+    add_question_button = tk.Button(question_controls_frame, bg="#F0F0F0", text="Add Question", padx=10, pady=5, font="motserrat, 25", command=add_qn)
     add_question_button.grid(row=0, column=0)
 
     update_question_button = tk.Button(question_controls_frame, bg="#F0F0F0", text="Update Question", padx=10, pady=5, font="motserrat, 25", command=update_question)
@@ -148,7 +147,6 @@ def user_reports():
 
 # SUB BUTTON FUNCTION
 
-
 def add_question():
 
     for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
@@ -156,51 +154,44 @@ def add_question():
 
     question_controls()
 
-    add_question_frame = tk.LabelFrame(content_frame, text="Add Question", font=admin_panel_item_font)
-    add_question_frame.pack()
+    add_qn_frame = tk.LabelFrame(content_frame, text="Add Question", font=admin_panel_item_font, bg='White')
+    add_qn_frame.pack(side="top")
 
-
-    question_title_label = tk.Label(add_question_frame, text="Enter question title", font=side_panel_font, justify="left")
+    question_title_label = tk.Label(add_qn_frame, text="Enter question title", font=side_panel_font, justify="left")
     question_title_label.grid(row=0, column=0, sticky="w", padx=60)
 
-    entry_question_title = tk.Entry(add_question_frame, borderwidth=5, width=160)
-    entry_question_title.grid(row=1, column=0, columnspan=3, padx=60)
+    ent_qn_title = tk.Entry(add_qn_frame, borderwidth=5, width=160)
+    ent_qn_title.grid(row=1, column=0, columnspan=3, padx=60)
 
+    opt_1_lbl = tk.Label(add_qn_frame, text="Option 1", font=side_panel_font)
+    opt_1_lbl.grid(row=2, column=0, sticky="w", pady=15, padx=60)
+    opt_1_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
+    opt_1_ent.grid(row=3, column=0, sticky="w", padx=60)
+    opt_2_lbl = tk.Label(add_qn_frame, text="Option 2", font=side_panel_font)
+    opt_2_lbl.grid(row=2, column=2, sticky="w", padx=60)
+    opt_2_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
+    opt_2_ent.grid(row=3, column=2, sticky="w", pady=15, padx=60)
+    opt_3_lbl = tk.Label(add_qn_frame, text="Option 3", font=side_panel_font)
+    opt_3_lbl.grid(row=4, column=0, sticky="w", padx=60)
+    opt_3_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
+    opt_3_ent.grid(row=5, column=0, sticky="w", pady=15, padx=60)
+    opt_4_lbl = tk.Label(add_qn_frame, text="Option 4", font=side_panel_font)
+    opt_4_lbl.grid(row=4, column=2, sticky="w", padx=60)
+    opt_4_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
+    opt_4_ent.grid(row=5, column=2, sticky="w", padx=60)
 
-    option_1_label = tk.Label(add_question_frame, text="Option 1", font=side_panel_font)
-    option_1_label.grid(row=2, column=0, sticky="w", pady=15, padx=60)
-    option_1_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-    option_1_entry.grid(row=3, column=0, sticky="w", padx=60)
-
-
-    option_3_label = tk.Label(add_question_frame, text="Option 3", font=side_panel_font)
-    option_3_label.grid(row=4, column=0, sticky="w", padx=60)
-    option_3_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-    option_3_entry.grid(row=5, column=0, sticky="w", pady=15, padx=60)
-
-    correct_answer_label = tk.Label(add_question_frame, text="Correct Answer", font=side_panel_font)
-    correct_answer_label.grid(row=6, column=0, sticky="w", padx=60)
-    correct_answer_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-    correct_answer_entry.grid(row=7, column=0, sticky="w", pady=15, padx=60)
+    crt_ans_lbl = tk.Label(add_qn_frame, text="Correct Answer", font=side_panel_font)
+    crt_ans_lbl.grid(row=6, column=0, sticky="w", padx=60)
+    crt_ans_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
+    crt_ans_ent.grid(row=7, column=0, sticky="w", pady=15, padx=60)
     
-    option_2_label = tk.Label(add_question_frame, text="Option 2", font=side_panel_font)
-    option_2_label.grid(row=2, column=2, sticky="w", padx=60)
-    option_2_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-    option_2_entry.grid(row=3, column=2, sticky="w", pady=15, padx=60)
+    qn_cate_lbl = tk.Label(add_qn_frame, text="Question Category", font=side_panel_font)
+    qn_cate_lbl.grid(row=6, column=2, sticky="w", padx=60)
+    qn_cate_ent = tk.Entry(add_qn_frame, borderwidth=5, width=50)
+    qn_cate_ent.grid(row=7, column=2, sticky="w", padx=60)
 
-
-    option_4_label = tk.Label(add_question_frame, text="Option 4", font=side_panel_font)
-    option_4_label.grid(row=4, column=2, sticky="w", padx=60)
-    option_4_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-    option_4_entry.grid(row=5, column=2, sticky="w", padx=60)
-
-    Question_Category_label = tk.Label(add_question_frame, text="Question Category", font=side_panel_font)
-    Question_Category_label.grid(row=6, column=2, sticky="w", padx=60)
-    Question_Category_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-    Question_Category_entry.grid(row=7, column=2, sticky="w", padx=60)
-
-    add_question_button = tk.Button(add_question_frame, text="Add Question", font="motserrat, 25")
-    add_question_button.grid(column=1, pady=30)
+    add_qn_btn = tk.Button(add_qn_frame, text="Add Question", font="motserrat, 25")
+    add_qn_btn.grid(column=1, pady=30)
 
 
 def update_question():
@@ -208,71 +199,105 @@ def update_question():
         widget.destroy()
 
     question_controls()
-    add_question_frame = tk.LabelFrame(content_frame, text="Update Question", font=admin_panel_item_font)
-    add_question_frame.pack()
 
-    question_title_label = tk.Label(add_question_frame, text="Question title", font=side_panel_font, justify="left")
-    question_title_label.grid(row=0, column=0, sticky="w", padx=60)
+    update_qn_frame = tk.LabelFrame(content_frame, text="Update Question", font=admin_panel_item_font,bg='White')
+    update_qn_frame.pack()
 
-    entry_question_title = tk.Entry(add_question_frame, borderwidth=5, width=160)
+    qn_title_lbl = tk.Label(update_qn_frame, text="Question title", font=side_panel_font, justify="left",bg='White')
+    qn_title_lbl.grid(row=0, column=0, sticky="w", padx=60)
+
+    entry_question_title = tk.Entry(update_qn_frame, borderwidth=5, width=160,bg='White')
     entry_question_title.grid(row=1, column=0, columnspan=3, padx=60)
 
+    opt_1_lbl = tk.Label(update_qn_frame, text="Option 1", font=side_panel_font,bg='White')
+    opt_1_lbl.grid(row=2, column=0, sticky="w", pady=15, padx=60)
+    opt_1_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+    opt_1_ent.grid(row=3, column=0, sticky="w", padx=60)
+    opt_2_lbl = tk.Label(update_qn_frame, text="Option 2", font=side_panel_font)
+    opt_2_lbl.grid(row=2, column=2, sticky="w", padx=60)
+    opt_2_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+    opt_2_ent.grid(row=3, column=2, sticky="w", pady=15, padx=60)
+    opt_3_lbl = tk.Label(update_qn_frame, text="Option 3", font=side_panel_font)
+    opt_3_lbl.grid(row=4, column=0, sticky="w", padx=60)
+    opt_3_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+    opt_3_ent.grid(row=5, column=0, sticky="w", pady=15, padx=60)
+    opt_4_lbl = tk.Label(update_qn_frame, text="Option 4", font=side_panel_font)
+    opt_4_lbl.grid(row=4, column=2, sticky="w", padx=60)
+    opt_4_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+    opt_4_ent.grid(row=5, column=2, sticky="w", padx=60)
 
-    option_1_label = tk.Label(add_question_frame, text="Option 1", font=side_panel_font)
-    option_1_label.grid(row=2, column=0, sticky="w", pady=15, padx=60)
-    option_1_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-    option_1_entry.grid(row=3, column=0, sticky="w", padx=60)
-
-
-    option_3_label = tk.Label(add_question_frame, text="Option 3", font=side_panel_font)
-    option_3_label.grid(row=4, column=0, sticky="w", padx=60)
-    option_3_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-    option_3_entry.grid(row=5, column=0, sticky="w", pady=15, padx=60)
-
-    correct_answer_label = tk.Label(add_question_frame, text="Correct Answer", font=side_panel_font)
-    correct_answer_label.grid(row=6, column=0, sticky="w", padx=60)
-    correct_answer_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-    correct_answer_entry.grid(row=7, column=0, sticky="w", pady=15, padx=60)
+    crt_ans_lbl = tk.Label(update_qn_frame, text="Correct Answer", font=side_panel_font)
+    crt_ans_lbl.grid(row=6, column=0, sticky="w", padx=60)
+    crt_ans_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+    crt_ans_ent.grid(row=7, column=0, sticky="w", pady=15, padx=60)
     
-    option_2_label = tk.Label(add_question_frame, text="Option 2", font=side_panel_font)
-    option_2_label.grid(row=2, column=2, sticky="w", padx=60)
-    option_2_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-    option_2_entry.grid(row=3, column=2, sticky="w", pady=15, padx=60)
+    qn_cate_lbl = tk.Label(update_qn_frame, text="Question Category", font=side_panel_font)
+    qn_cate_lbl.grid(row=6, column=2, sticky="w", padx=60)
+    qn_cate_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+    qn_cate_ent.grid(row=7, column=2, sticky="w", padx=60)
 
-
-    option_4_label = tk.Label(add_question_frame, text="Option 4", font=side_panel_font)
-    option_4_label.grid(row=4, column=2, sticky="w", padx=60)
-    option_4_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-    option_4_entry.grid(row=5, column=2, sticky="w", padx=60)
-
-    Question_Category_label = tk.Label(add_question_frame, text="Question Category", font=side_panel_font)
-    Question_Category_label.grid(row=6, column=2, sticky="w", padx=60)
-    Question_Category_entry = tk.Entry(add_question_frame, borderwidth=5, width=50)
-    Question_Category_entry.grid(row=7, column=2, sticky="w", padx=60)
-
-    add_question_button = tk.Button(add_question_frame, text="Add Question", font="motserrat, 25")
-    add_question_button.grid(column=1, pady=30)
+    add_qn_btn = tk.Button(update_qn_frame, text="Add Question", font="motserrat, 25")
+    add_qn_btn.grid(column=1, pady=30)
 
 
 def delete_question():
-    pass
+    for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+        widget.destroy()
+
+    question_controls()
+
+    del_qn_frame = tk.Frame(content_frame, text="Update Question", font=admin_panel_item_font)
+    del_qn_frame.pack()
+    
+    """
+    del_qn_frame = tk.LabelFrame(content_frame, text="Update Question", font=admin_panel_item_font)
+    del_qn_frame.pack()
+
+    qn_title_lbl = tk.Label(update_qn_frame, text="Question title", font=side_panel_font, justify="left")
+    qn_title_lbl.grid(row=0, column=0, sticky="w", padx=60)
+
+    entry_question_title = tk.Entry(update_qn_frame, borderwidth=5, width=160)
+    entry_question_title.grid(row=1, column=0, columnspan=3, padx=60)
+
+    opt_1_lbl = tk.Label(update_qn_frame, text="Option 1", font=side_panel_font)
+    opt_1_lbl.grid(row=2, column=0, sticky="w", pady=15, padx=60)
+    opt_1_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+    opt_1_ent.grid(row=3, column=0, sticky="w", padx=60)
+    opt_2_lbl = tk.Label(update_qn_frame, text="Option 2", font=side_panel_font)
+    opt_2_lbl.grid(row=2, column=2, sticky="w", padx=60)
+    opt_2_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+    opt_2_ent.grid(row=3, column=2, sticky="w", pady=15, padx=60)
+    opt_3_lbl = tk.Label(update_qn_frame, text="Option 3", font=side_panel_font)
+    opt_3_lbl.grid(row=4, column=0, sticky="w", padx=60)
+    opt_3_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+    opt_3_ent.grid(row=5, column=0, sticky="w", pady=15, padx=60)
+    opt_4_lbl = tk.Label(update_qn_frame, text="Option 4", font=side_panel_font)
+    opt_4_lbl.grid(row=4, column=2, sticky="w", padx=60)
+    opt_4_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+    opt_4_ent.grid(row=5, column=2, sticky="w", padx=60)
+
+    crt_ans_lbl = tk.Label(update_qn_frame, text="Correct Answer", font=side_panel_font)
+    crt_ans_lbl.grid(row=6, column=0, sticky="w", padx=60)
+    crt_ans_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+    crt_ans_ent.grid(row=7, column=0, sticky="w", pady=15, padx=60)
+    
+    qn_cate_lbl = tk.Label(update_qn_frame, text="Question Category", font=side_panel_font)
+    qn_cate_lbl.grid(row=6, column=2, sticky="w", padx=60)
+    qn_cate_ent = tk.Entry(update_qn_frame, borderwidth=5, width=50)
+    qn_cate_ent.grid(row=7, column=2, sticky="w", padx=60)
+
+    add_qn_btn = tk.Button(update_qn_frame, text="Add Question", font="motserrat, 25")
+    add_qn_btn.grid(column=1, pady=30)
+    """
 
 
-
-
-
-# Admin image, used in side panel.
 # admin_img = ImageTk.PhotoImage(Image.open("DBMS-Project/work files/Noyal/admin_white.png"))
-admin_img = ImageTk.PhotoImage(Image.open("admin_white.png"))
-
-
+admin_img = ImageTk.PhotoImage(Image.open("admin_white.png")) # Admin image, used in side panel.
 
 
 # Side Pannel
 side_panel = tk.Frame(root, bg=side_panel_bg,)
 side_panel.pack(side="left", fill="y")
-
-
 
 # Admin main icon label
 admin_icon_label = tk.Label(side_panel, image=admin_img, bg=side_panel_bg)
@@ -292,7 +317,6 @@ user_reports_button.pack(padx=50, pady=20)
 
 statistics_button = tk.Button(side_panel, text="Statistics", font=side_panel_font, bg=side_panel_bg, foreground="white", relief="flat", activebackground=side_panel_bg)# , command=statistics)
 statistics_button.pack(padx=50, pady=20)
-
 
 # Content Frame
 content_frame = tk.Frame(root, bg="white")

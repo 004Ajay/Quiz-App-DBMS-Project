@@ -11,6 +11,7 @@ from db_connect import project_db # for accessing 'our project database'
 # from cat_sel_gmply_copy import *
 # from catsel_test import *
 from welcome_test import * # moving to welcome page
+from admin_test import admin_panel
 
 mydb = project_db()
 mycursor = mydb.cursor(buffered=True)
@@ -194,8 +195,8 @@ def login_page():
         data=mycursor.fetchall()
         global usrnm,emai
         if usrnm_email.get() == 'Admin' and  pw.get() == 'pass':
-            # admin_panel()
-            print("log to admin")
+            root.destroy() # destroy current window
+            admin_panel() # logging in to admin panel
         elif len(data)> 0:
             usrnm=data[0][0]
             emai=data[0][1]
