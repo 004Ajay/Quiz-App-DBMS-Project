@@ -120,7 +120,7 @@ def user_controls():
     user_controls_frame = tk.Frame(content_frame, bg="white")
     user_controls_frame.pack()
 
-    add_user_button = tk.Button(user_controls_frame, bg="#F0F0F0", text="Add User", padx=10, pady=5, font="motserrat, 25")
+    add_user_button = tk.Button(user_controls_frame, bg="#F0F0F0", text="Add User", padx=10, pady=5, font="motserrat, 25",command = add_user)
     add_user_button.grid(row=0, column=0)
 
     update_user_button = tk.Button(user_controls_frame, bg="#F0F0F0", text="Update User", padx=10, pady=5, font="motserrat, 25")
@@ -249,6 +249,42 @@ def delete_question():
     del_qn_frame = tk.Frame(content_frame, text="Update Question", font=admin_panel_item_font)
     del_qn_frame.pack()
     
+
+def add_user():
+
+    for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+        widget.destroy()
+
+    user_controls()
+
+    add_user_frame = tk.LabelFrame(content_frame, text="Add User", font=admin_panel_item_font, bg='White')
+    add_user_frame.pack(side="top")
+
+    username_label = tk.Label(add_user_frame, text="Enter Username", font=side_panel_font, justify="left")
+    username_label.grid(row=0, column=0, sticky="w", padx=60)
+    ent_user_title = tk.Entry(add_user_frame, borderwidth=5, width=160)
+    ent_user_title.grid(row=1, column=0, columnspan=3, padx=60)
+
+    email_label = tk.Label(add_user_frame, text="Enter Email", font=side_panel_font)
+    email_label.grid(row=0, column=1, sticky="w", pady=15, padx=60)
+    email_ent = tk.Entry(add_user_frame, borderwidth=5, width=50)
+    email_ent.grid(row=1, column=1, sticky="w", padx=60)
+    
+    pass_label = tk.Label(add_user_frame, text="Enter Password", font=side_panel_font)
+    pass_label.grid(row=2, column=0, sticky="w", pady=15, padx=60)
+    pass_ent = tk.Entry(add_user_frame, borderwidth=5, width=50)
+    pass_ent.grid(row=3, column=0, sticky="w", padx=60)
+
+    conf_pass_label = tk.Label(add_user_frame, text="Confirm Password", font=side_panel_font)
+    conf_pass_label.grid(row=2, column=1, sticky="w", pady=15, padx=60)
+    conf_pass_ent = tk.Entry(add_user_frame, borderwidth=5, width=50)
+    conf_pass_ent.grid(row=3, column=1, sticky="w", padx=60)
+
+    clear_btn = tk.Button(add_user_frame, text="Clear", font="motserrat, 25")
+    clear_btn.grid(row=5,column=0, pady=30)
+
+    add_btn = tk.Button(add_user_frame, text="Add User", font="motserrat, 25")
+    add_btn.grid(row=5,column=3, pady=30)
 
     """
     del_qn_frame = tk.LabelFrame(content_frame, text="Update Question", font=admin_panel_item_font)
