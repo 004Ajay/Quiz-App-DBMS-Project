@@ -5,23 +5,14 @@ import tkinter.font as tkf # for setting font size for drop_down list
 from tkinter import messagebox as mb
 from db_connect import project_db
 
-
 #root.geometry(f"{root.winfo_screenwidth()}x{root.winfo_screenheight()}")
 # root.state('zoomed')
-
 
 mydb = project_db()
 mycursor = mydb.cursor(buffered=True)
 
-
-#################  KEYBOARD SHORTCUTS   ######################
-
-# def exit_window(e): root.destroy()
-
-#############################################################
-
 global i,data,r1,r2,r3,r4,s,cnt1,rep,cat
-def win(emai):
+def win(username, emai):
     root = Tk()
     root.title("Gameplay")
     root.geometry("1920x1080")
@@ -30,9 +21,6 @@ def win(emai):
     def exit_window(e): root.destroy()
 
     def gameplay():
-        
-    
-        
     
         def drpg():
             global cat
@@ -52,7 +40,7 @@ def win(emai):
         radiovar.set(None)
     
     
-    ###########  FOR DESTROY BUTTONS  ##################
+    ###########  TO DESTROY BUTTONS  ##################
         def des():
             r1.destroy()
             r2.destroy()
@@ -61,6 +49,11 @@ def win(emai):
             s.destroy()
             cnt1.destroy()
             exit_btn.destroy()
+        
+        def to_result():
+            pass
+            # des()
+            # result()
             
     #############  CODE TO APPEND USER ANSWER TO VARIABLE 'USER' #################
     
@@ -101,20 +94,19 @@ def win(emai):
     
         def result():
             root.title('Result')
-            #score=0
-            crt_ans=0
-            wrong_ans=0
+            crt_ans = wrong_ans = 0 #score = 0
             for j in range(0,tot_qns): # change no of questions here
                 if user[j]==ans[j]:
-                    #score+=5
-                    crt_ans+=1
+                    #score += 10
+                    crt_ans += 1
                 else:
-                    wrong_ans+=1
+                    #score -= 10
+                    wrong_ans += 1
             
             rslt=Label(root,text=f'Result of {cat} Quiz',font=('Montserrat',20,UNDERLINE,'bold'),bg='white')
             rslt.place(relx=0.5,rely=0.1,anchor=CENTER)
     
-            usr=Label(root,text= 'Username:<username>',font=('Montserrat',16),bg='white') # change username to get from db 
+            usr=Label(root,text= f'Username: {username}',font=('Montserrat',16),bg='white') # change username to get from db 
             usr.place(relx=0.5,rely=0.17,anchor=CENTER)
     
             dtl=Label(root,text='Detailed Report',font=('Montserrat',16,UNDERLINE),bg='white')
@@ -172,7 +164,7 @@ def win(emai):
                 rep=Button(root,text='Report',font=('Montserrat', 15,UNDERLINE),bg='white',fg='blue',bd=0,cursor='hand2')
                 rep.place(relx=0.22,rely=0.8,width=150,height=50)
     
-                exit_btn=Button(root,text='Exit',font=('Montserrat', 15),command=selected)
+                exit_btn=Button(root,text='Exit',font=('Montserrat', 15),command=to_result)
                 exit_btn.place(relx=0.46,rely=0.8,width=140,height=40)
     
                 cnt1=Button(root,text='Continue',font=('Montserrat', 15),command=selected)

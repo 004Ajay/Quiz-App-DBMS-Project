@@ -8,7 +8,6 @@ from catsel_test import * # moving to category selection page
 mydb = project_db()
 mycursor = mydb.cursor(buffered=True)
 
-
 def welcome_user(username, emai):
     root = Tk()
     root.geometry("1920x1080")
@@ -29,7 +28,7 @@ def welcome_user(username, emai):
 
     def wel_to_cate():
         root.destroy()
-        win(emai)    
+        win(username, emai)    
 
     """
     mycursor.execute("SELECT * FROM players")

@@ -144,7 +144,7 @@ INSERT INTO QUESTIONS VALUES(44,"How many pips are there inside one cherry?","On
 INSERT INTO QUESTIONS VALUES(45,"What is dried grapes called?","Prunes","apricots","Raisins","Bramble","Raisins","Nature");
 INSERT INTO QUESTIONS VALUES(46,"A berry that is often confused with blueberries. It also grows in the forest.","Blueberries","Lingonberry","Cranberry","Bushberry","Blueberries","Nature");
 INSERT INTO QUESTIONS VALUES(47,"What is the name of the berry that has the prickliest bush?","Raspberry","Currants","Gooseberry","Bushberry","Gooseberry","Nature");
-INSERT INTO QUESTIONS VALUES(48,"Which berry is very similar to a blueberry and is considered poisonous?","Blueberries","Crow's eye","Blackcurrant","birch","Crow's eye","Nature");
+INSERT INTO QUESTIONS VALUES(48,"What is the name for a baby swan?","Swanling","Gosling","Cygnet","Chick","Cygnet","Nature");
 INSERT INTO QUESTIONS VALUES(49,"Which tree has leaves that look like palms?","Oak","Mango","Maple","Oak","Maple","Nature");
 INSERT INTO QUESTIONS VALUES(50,"On which trees do acorns grow?","Birch","Ash","Rowan","Pine","Oak","Nature");
 
