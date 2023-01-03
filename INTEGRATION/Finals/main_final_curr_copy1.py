@@ -109,9 +109,11 @@ def welcome_user(username, emai):
 """
 
 #################   SIGN_UP PAGE   ############################
-
+def framedes():
+    global frame2
+    login_page()
 def register_page():
-    global frame
+    global frame,frame2
     root.title("Signup Page")
 
     def signup_btn_shortkey(event): sign_up()
@@ -140,48 +142,48 @@ def register_page():
             mb.showinfo("Success", "Player successfully added")
             login_page() # redirects to login page after successful sign up
     
-    frame=Frame(root,bg='white')
-    frame.place(x=565,y=90,width=430, height=520)
+    frame2=Frame(root,bg='white')
+    frame2.place(relx=.5,rely=.45,anchor=CENTER,width=430, height=520)
 
-    label_title = Label(root, text="QUIZ APP", font=('Montserrat', 50),bg='white')
-    label_title.place(x=615, y=100)
+    label_title = Label(frame2, text="QUIZ APP", font=('Montserrat', 50),bg='white')
+    label_title.place(relx=.5, rely=.1,anchor=CENTER)
 
-    label_heading=Label(root,text='Create An Account',font=('Montserrat', 20),bg='white')
-    label_heading.place(x=660,y=200)
+    label_heading=Label(frame2,text='Create An Account',font=('Montserrat', 20),bg='white')
+    label_heading.place(relx=.5,rely=.25,anchor=CENTER)
 
-    label_mail = Label(root, text="E-mail",font=('Montserrat',15),bg='white')
-    label_mail.place(x=585, y=300)
-    new_mail = Entry(root,font=('Montserrat',11),bg='white')
-    new_mail.place(x=780, y=300, width=180, height=30)
+    label_mail = Label(frame2, text="E-mail",font=('Montserrat',15),bg='white')
+    label_mail.place(relx=.05,rely=.4)
+    new_mail = Entry(frame2,font=('Montserrat',11),bg='white')
+    new_mail.place(relx=.5,rely=.4, width=180, height=30)
 
-    label_name = Label(root, text="Username",font=('Montserrat',15),bg='white')
-    label_name.place(x=585, y=340)
-    new_name = Entry(root,font=('Montserrat',11),bg='white')
-    new_name.place(x=780, y=340, width=180, height=30)
+    label_name = Label(frame2, text="Username",font=('Montserrat',15),bg='white')
+    label_name.place(relx=.05, rely=.48)
+    new_name = Entry(frame2,font=('Montserrat',11),bg='white')
+    new_name.place(relx=.5, rely=.48, width=180, height=30)
 
-    label_pw = Label(root, text="New Password",font=('Montserrat',15),bg='white')
-    label_pw.place(x=585, y=380)
-    new_pw = Entry(root, show='*',font=('Montserrat',13),bg='white')
-    new_pw.place(x=780, y=380, width=180, height=30)
+    label_pw = Label(frame2, text="New Password",font=('Montserrat',15),bg='white')
+    label_pw.place(relx=.05, rely=.56)
+    new_pw = Entry(frame2, show='*',font=('Montserrat',13),bg='white')
+    new_pw.place(relx=.5,rely=.56, width=180, height=30)
 
-    label_confirm_pw = Label(root, text="Confirm Password",font=('Montserrat',15),bg='white')
-    label_confirm_pw.place(x=585, y=420)
-    new_cpw = Entry(root, show='*',font=('Montserrat',13),bg='white')
-    new_cpw.place(x=780, y=420, width=180, height=30)
-    
-    button_signup = Button(root, text="Sign Up",font=('Montserrat',17),command=sign_up)
-    button_signup.place(x=676, y=480, width=200, height=50)
+    label_confirm_pw = Label(frame2, text="Confirm Password",font=('Montserrat',15),bg='white')
+    label_confirm_pw.place(relx=.05, rely=.64)
+    new_cpw = Entry(frame2, show='*',font=('Montserrat',13),bg='white')
+    new_cpw.place(relx=.5, rely=.64, width=180, height=30)
+
+    button_signup = Button(frame2, text="Sign Up",font=('Montserrat',17),command=sign_up)
+    button_signup.place(relx=.5, rely=.8,anchor=CENTER, width=200, height=50)
     button_signup.bind("<Return>", signup_btn_shortkey) # short key for sign up button
 
-    account=Label(root,text='Already have an account?',font=('Montserrat',10),bg='white')
-    account.place(x=655,y=575)
+    account=Label(frame2,text='Already have an account?',font=('Montserrat',10),bg='white')
+    account.place(relx=.2,rely=.92)
 
-    login_link=Button(root,text='Log in',font=('Montserrat',11, UNDERLINE),fg='blue',bd=0,cursor='hand2',bg='white',command=login_page)
-    login_link.place(x=830,y=568) # ,width=100,height=25)
+    login_link=Button(frame2,text='Log in',font=('Montserrat',11, UNDERLINE),fg='blue',bd=0,cursor='hand2',bg='white',command=framedes)
+    login_link.place(relx=.6,rely=.92) # ,width=100,height=25)
     login_link.bind("<Return>", login_link_shortkey) # short key for login link in sign up page
 
-    pswd_show(root,new_pw,eye_img,960,383)  # moved to here for better TAB key travel
-    pswd_show(root,new_cpw,eye_img,960,423)
+    pswd_show(frame2,new_pw,eye_img,395,295)  # moved to here for better TAB key travel
+    pswd_show(frame2,new_cpw,eye_img,395,335)
 
 
 #################   LOGIN_PAGE   ############################
