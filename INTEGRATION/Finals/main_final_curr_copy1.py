@@ -1,4 +1,4 @@
-# CURRENT STARTING FILE
+# CURRENT STARTING FILE__COPY
 
 from tkinter import *
 from tkinter import messagebox as mb
