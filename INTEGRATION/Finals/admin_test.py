@@ -19,6 +19,8 @@ def admin_panel():
     # root.iconbitmap("DBMS-Project/work files/Noyal/Q.ico")
     root.iconbitmap("Q.ico")
 
+    def exit_window(e): root.destroy() # to exit window
+
     global admin_img # for protecting image from garbage collection (admin icon)
 
     def dashboard():
@@ -80,8 +82,8 @@ def admin_panel():
                 label.grid(row=i+1, column=j)
                 labels.append(label)
 
-    ##################### ADMIN CONTROLS #####################
 
+    ##################### ADMIN CONTROLS #####################
     def question_controls():
         for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame.
             widget.destroy()
@@ -120,6 +122,22 @@ def admin_panel():
         delete_user_button = tk.Button(user_controls_frame, bg="#F0F0F0", text="Delete User", padx=10, pady=5, font="Montserrat, 25", command=delete_user)
         delete_user_button.grid(row=0, column=2)
 
+    def category_controls():
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame.
+            widget.destroy()
+
+        category_controls_label = tk.Label(content_frame, bg="white", text="Category Controls", font="Montserrat, 55")
+        category_controls_label.pack(pady=30)
+
+        category_controls_frame = tk.Frame(content_frame, bg="white")
+        category_controls_frame.pack()
+
+        add_category_button = tk.Button(category_controls_frame, bg="#F0F0F0", text="Add Category", padx=10, pady=5, font="Montserrat, 25",command=add_category)
+        add_category_button.grid(row=3, column=0)
+
+        delete_category_button = tk.Button(category_controls_frame, bg="#F0F0F0", text="Delete Category", padx=10, pady=5, font="Montserrat, 25",command=delete_category)
+        delete_category_button.grid(row=3, column=1)    
+
     """
     # TO BE COMPLETED IF WE GET TIME
 
@@ -131,6 +149,73 @@ def admin_panel():
         for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame.
             widget.destroy()
     """
+
+
+    ##################### CATEGORY CONTROLS SECTION #############################
+    def add_category():
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+            widget.destroy()
+
+        def add_cat():
+            try:
+                mycursor.execute(f'INSERT INTO CATEGORIES VALUES("{ent_cat_title.get()}", "{ent_cat_desc.get()}")')
+                mydb.commit()
+                mb.showinfo("Category Added", "Category added successfully")
+                [widget.delete(0, 'end') for widget in add_cat_frame.winfo_children() if isinstance(widget, tk.Entry)]
+            except:
+                mydb.rollback()
+                mb.showinfo("Error", "Error adding category")
+
+        category_controls()
+
+        add_cat_frame = tk.LabelFrame(content_frame, text="Add Category", font=admin_panel_item_font, bg='White')
+        add_cat_frame.pack(side="top")
+
+        cat_label = tk.Label(add_cat_frame, text="Enter Category Name", font=side_panel_font, justify="left", bg='White')
+        cat_label.grid(row=2, column=0, sticky="w", padx=60)
+        ent_cat_title = tk.Entry(add_cat_frame, borderwidth=5, width=50)
+        ent_cat_title.grid(row=2, column=1, sticky="w", padx=60)
+
+        desc_label = tk.Label(add_cat_frame, text="Enter Category Description", font=side_panel_font, justify="left", bg='White')
+        desc_label.grid(row=3, column=0, sticky="w", pady=25, padx=60)
+        ent_cat_desc = tk.Entry(add_cat_frame, borderwidth=5, width=50)
+        ent_cat_desc.place(x=275,y=120,height=75, width=310)
+
+        cat_add_btn = tk.Button(add_cat_frame, text="Add Category", font="Montserrat, 25", command=add_cat)
+        cat_add_btn.grid(row=5,column=1,padx=90, pady=80)
+
+    def delete_category():
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+            widget.destroy()
+
+        def del_cat():
+            try:
+                cat = ent_cat_title.get()
+                mycursor.execute("SELECT CATEGORY_NAME FROM CATEGORIES")
+                categories = [i[0].lower() for i in mycursor.fetchall()]
+                if cat.lower() in categories:
+                    mycursor.execute(f"DELETE FROM CATEGORIES WHERE CATEGORY_NAME = '{ent_cat_title.get()}'")
+                    mydb.commit()
+                    mb.showinfo("Category Deleted", "Category deleted successfully")
+                    [widget.delete(0, 'end') for widget in del_cat_frame.winfo_children() if isinstance(widget, tk.Entry)]
+                else:
+                    mb.showinfo("Category not found", "No such category exist")
+            except:
+                mydb.rollback()
+                mb.showinfo("Error", "Error deleting category")
+
+        category_controls()
+
+        del_cat_frame = tk.LabelFrame(content_frame, text="Delete Category", font=admin_panel_item_font, bg='White')
+        del_cat_frame.pack(side="top")
+
+        cat_label = tk.Label(del_cat_frame, text="Enter Category Name", font=side_panel_font, justify="left", bg='White')
+        cat_label.grid(row=2, column=0, sticky="w", padx=60)
+        ent_cat_title = tk.Entry(del_cat_frame, borderwidth=5, width=50)
+        ent_cat_title.grid(row=2, column=1, sticky="w", padx=60)
+
+        cat_add_btn = tk.Button(del_cat_frame, text="Delete Category", font="Montserrat, 25", command=del_cat)
+        cat_add_btn.grid(row=5,column=1,padx=90, pady=80)
 
     ##################### QUESTION CONTROLS SECTION #############################
     def add_question():
@@ -434,11 +519,14 @@ def admin_panel():
     admin_dashboard_button = tk.Button(side_panel, text="Admin Dashboard", font=side_panel_font, bg=side_panel_bg, foreground="white", relief="flat", activebackground=side_panel_bg, command=dashboard)
     admin_dashboard_button.pack(padx=50)
 
+    category_controls_button = tk.Button(side_panel, text="Category Controls", font=side_panel_font, bg=side_panel_bg, foreground="white", relief="flat", activebackground=side_panel_bg, command=category_controls)
+    category_controls_button.pack(padx=52)
+
     question_controls_button = tk.Button(side_panel, text="Question Controls", font=side_panel_font, bg=side_panel_bg, foreground="white", relief="flat", activebackground=side_panel_bg, command=question_controls)
-    question_controls_button.pack(padx=50, pady=20)
+    question_controls_button.pack(padx=60, pady=20)
 
     user_controls_button = tk.Button(side_panel, text="User Controls", font=side_panel_font, bg=side_panel_bg, foreground="white", relief="flat", activebackground=side_panel_bg, command=user_controls)
-    user_controls_button.pack(padx=50)
+    user_controls_button.pack(padx=65)
 
     """
     # WE CAN DO THIS IF WE GET TIME
@@ -456,5 +544,5 @@ def admin_panel():
 
     dashboard()
 
-    # root.bind('<Escape>', exit_window)
+    root.bind('<Escape>', exit_window)
     # root.mainloop()
