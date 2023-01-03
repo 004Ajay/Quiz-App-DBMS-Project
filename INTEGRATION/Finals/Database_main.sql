@@ -1,10 +1,6 @@
 
 -- DB COMMANDS
 
--- SQL SYNTAX VALIDATOR(ONLINE): https://www.eversql.com/sql-syntax-check-validator/
-
--- ---------------------------------------------------------------------------------------- --
-
 -- FOR REMOVING TABLES FROM PROGRAMIZ SQL EDITOR
 DROP TABLE CUSTOMERS;
 DROP TABLE ORDERS;
@@ -12,12 +8,24 @@ DROP TABLE SHIPPINGS;
 
 -- ---------------------------------------------------------------------------------------- --
 
---        ------------- ****** MAJOR CHANGES ****** -------------   --
+-- SAMPLE LOGIN QUERY
+SELECT * FROM PLAYERS WHERE (USERNAME = 'AJAY' OR EMAIL = 'AJAY@GMAIL.COM') AND PASSWORD = 'SJC';
 
--- NAME OF COLUMN QN(USED FOR STROING QUESTIONS) OF QUESTIONS TABLE NAME HAS CHANGED TO QUESTIONS
--- VIEW FROM QUESTIONS TABLE HAS CREATED & IT TAKES QUESTION ONLY FROM SELECTED CATEGORY
--- 'CATE_NAME' COLUMN IS A FOREIGN KEY IN QUESTIONS TABLE THAT REFERENCES CATEGORIES TABLE'S 'CATEGORY_NAME' COLUMN
--- THERE IS A CONFUSION REGARDING QUIZ_ACTIVITY TABLE, HOW TO USE IT
+-- ---------------------------------------------------------------------------------------- --
+
+-- USE THESE IF NEEDED...
+
+
+-- TO CREATE VIEW FOR SELECTING QUESTION FROM USER SELECTED CATEGORY
+CREATE VIEW VIEW_QNS AS
+SELECT Q_NO, QUESTION, OPT1, OPT2, OPT3, OPT4, CRT_ANS
+FROM QUESTIONS
+WHERE CATE = 'Nature';
+
+-- ---------------------------------------------------------------------------------------- --
+
+-- GETTING VALUES FROM VIEW TABLE
+SELECT * FROM VIEW_QNS;
 
 -- ---------------------------------------------------------------------------------------- --
 
@@ -152,28 +160,3 @@ CREATE TABLE QUIZ_ACTIVITY (
     USER_ANSWER VARCHAR(100) NOT NULL,
     CORRECT_ANSWER VARCHAR(100) NOT NULL,
     FOREIGN KEY (PLAYER_EMAIL) REFERENCES PLAYERS(EMAIL));
-    
-
--- ---------------------------------------------------------------------------------------- --
-
--- SAMPLE LOGIN QUERY
-SELECT * FROM PLAYERS WHERE (USERNAME = 'AJAY' OR EMAIL = 'AJAY@GMAIL.COM') AND PASSWORD = 'SJC';
-
-
--- ---------------------------------------------------------------------------------------- --
-
-
-
--- USE THESE IF NEEDED...
-
-
--- TO CREATE VIEW FOR SELECTING QUESTION FROM USER SELECTED CATEGORY
-CREATE VIEW VIEW_QNS AS
-SELECT Q_NO, QUESTION, OPT1, OPT2, OPT3, OPT4, CRT_ANS
-FROM QUESTIONS
-WHERE CATE = 'Nature';
-
--- ---------------------------------------------------------------------------------------- --
-
--- GETTING VALUES FROM VIEW TABLE
-SELECT * FROM VIEW_QNS;
