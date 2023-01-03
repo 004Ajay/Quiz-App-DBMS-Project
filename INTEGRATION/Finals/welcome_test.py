@@ -4,14 +4,6 @@ from tkinter import *
 from db_connect import project_db
 from update_profile import *
 from catsel_test import * # moving to category selection page
-# from main_final_curr_copy1 import login_page
-
-
-#################  KEYBOARD SHORTCUTS   ######################
-
-# def exit_window(e): root.destroy() # to exit window
-
-##############################################################
 
 mydb = project_db()
 mycursor = mydb.cursor(buffered=True)
@@ -33,18 +25,14 @@ def welcome_user(username, emai):
 
     def logout():
         root.destroy()
-        # login_page()
         from main_final_curr_copy1 import login_page
 
     def wel_to_cate():
         root.destroy()
         win(emai)    
 
-
-    def qu():
-        return()
-
-    """mycursor.execute("SELECT * FROM players")
+    """
+    mycursor.execute("SELECT * FROM players")
     results = mycursor.fetchall() # Retrieve the query results
     column_names = [column[0] for column in mycursor.description] # Get the column names
 
@@ -64,7 +52,8 @@ def welcome_user(username, emai):
         for j, col in enumerate(row):
             label = Label(frame, text=col, bg='white')
             label.grid(row=i+1, column=j)
-            labels.append(label)"""    
+            labels.append(label)
+    """    
 
     welcome = Label(text=f"Welcome {username}", font=('Montserrat',33,'bold'),bg="white")
     welcome.place(relx=0.5,rely=0.15, anchor=CENTER)
@@ -78,24 +67,14 @@ def welcome_user(username, emai):
     join_date = Label(text="Player since: 17/11/2022", font=('Montserrat',15),bg="white")
     join_date.place(x=20,y=719)
 
-    # buttons
     b_logout = Button(root,text ="Log out",font=('Montserrat',12),command=logout)
     b_logout.place(relx=.89,rely=0.016,height=30,width=80)
 
     settings_icon_img = PhotoImage(file="settings.png") 
     b_settings = Button(root,image=settings_icon_img, command= settings_icon)
-    # b_settings.place(relx=.95,rely=.0149,width=5,height=2)
     b_settings.place(relx=.95,rely=.0149)
 
     b_qu = Button(root,text="New Game",font=('Montserrat',15), command=wel_to_cate)
     b_qu.place(x=1000, y=400, width=160, height=50)
 
-
-    root.bind('<Escape>', exit_window)    
-
-
-    
-    # root.mainloop()
-    
-    
-# root.bind('<Escape>', exit_window)    
+    root.bind('<Escape>', exit_window)

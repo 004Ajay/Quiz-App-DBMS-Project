@@ -2,7 +2,6 @@ from tkinter import *
 import tkinter as tk
 from tkinter import messagebox as mb
 from PIL import ImageTk, Image
-# import tkinter.font as tkf # for setting font size for drop_down list
 from db_connect import project_db
 
 
@@ -13,15 +12,6 @@ admin_panel_item_font= "Montserrat, 25"
 mydb = project_db()
 mycursor = mydb.cursor(buffered=True)
 
-
-
-#################  KEYBOARD SHORTCUTS   ######################
-
-# def exit_window(e): root.destroy() # to exit window
-
-##############################################################
-
-# BUTTON FUNCTION
 def admin_panel():
     root = tk.Tk()
     root.title("Admin")
@@ -69,7 +59,6 @@ def admin_panel():
         notification_label.pack(pady=20)
 
         # FOR SHOWING SQL INSIDE TKINTER WINDOW
-
         mycursor.execute("SELECT * FROM players")
         results = mycursor.fetchall() # Retrieve the query results
         column_names = [column[0] for column in mycursor.description] # Get the column names
@@ -143,12 +132,7 @@ def admin_panel():
             widget.destroy()
     """
 
-
-
     ##################### QUESTION CONTROLS SECTION #############################
-
-
-
     def add_question():
         for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
             widget.destroy()
@@ -280,9 +264,6 @@ def admin_panel():
 
         question_controls()
 
-        # del_qn_frame = tk.Frame(content_frame)
-        # del_qn_frame.pack()
-
         del_qn_frame = tk.LabelFrame(root,bg='White')
         del_qn_frame.pack()
 
@@ -321,8 +302,6 @@ def admin_panel():
 
         del_button = tk.Button(root, text="Delete Question",font=side_panel_font, command=del_qn) # , command = delete_question) # add command function
         del_button.place(x=800, y=610, width=170, height=40)
-
-
 
     ##################### USER CONTROLS SECTION #############################
 
@@ -363,7 +342,6 @@ def admin_panel():
 
 
     def update_user():
-
         for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
             widget.destroy()
 
@@ -412,8 +390,6 @@ def admin_panel():
     # admin_img = ImageTk.PhotoImage(Image.open("DBMS-Project/work files/Noyal/admin_white.png"))
     admin_img = ImageTk.PhotoImage(Image.open("admin_white.png")) # Admin image, used in side panel.
     
-
-
     # Side Pannel
     side_panel = tk.Frame(root, bg=side_panel_bg,)
     side_panel.pack(side="left", fill="y")

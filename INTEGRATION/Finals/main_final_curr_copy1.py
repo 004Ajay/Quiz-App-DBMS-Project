@@ -6,10 +6,6 @@ from PIL import ImageTk
 from pswdShowHide import pswd_show # show/hide password
 from forgot_pswd import * # from forgot password file
 from db_connect import project_db # for accessing 'our project database'
-# from update_profile import *
-# from wel_cpy import *
-# from cat_sel_gmply_copy import *
-# from catsel_test import *
 from welcome_test import * # moving to welcome page
 from admin_test import admin_panel
 
@@ -42,76 +38,11 @@ eye_img = ImageTk.PhotoImage(master = root, file="assets/show_pw.png") # to show
 bg1=ImageTk.PhotoImage(master = root, file="assets/main_bg.jpg")  # change path of image as in your system 
 bg_lbl=Label(root, image=bg1).place(x=0, y=-0, relwidth=1, relheight=1)
 
-
-
-"""
-def welcome_user(username, emai):
-        bg = Label(root,bg="white") #background
-        bg.place(x=0,y=0,relwidth=1,relheight=1)
-
-
-        def logout():
-            pass
-
-
-        def settings():
-            return()
-
-
-        def qu():
-            gameplay()
-
-        welcome = Label(text=f"Welcome {username}", font=('Montserrat',33,'bold'),bg="white")
-        welcome.place(relx=0.5,rely=0.15, anchor=CENTER)
-
-        last_played = Label(text=f"Last played on 27/11/2022", font=('Montserrat',20),bg="white")
-        last_played.place(relx=0.5,rely=0.27, anchor=CENTER)
-
-        stat = Label(root,text="Recent gameplays", font=('Montserrat',20),bg="white")
-        stat.place(x=380,y=310)
-
-        join_date = Label(text="Player since: 17/11/2022", font=('Montserrat',15),bg="white")
-        join_date.place(x=20,y=719)
-
-        # buttons
-        b_logout = Button(root,text ="Log out",font=('Montserrat',12),command=logout)
-        b_logout.place(relx=.89,rely=0.016,height=30,width=80)
-
-        im = PhotoImage(file="settings.png") 
-        b_settings = Button(root,image=im,height=25, command= settings_icon)
-        b_settings.place(relx=.95,rely=.0149)
-
-        b_qu = Button(root,text="New Game",font=('Montserrat',15), command=qu)
-        b_qu.place(x=1000, y=400, width=160, height=50)
-
-
-        mycursor.execute("SELECT * FROM PLAYERS")
-        results = mycursor.fetchall() # Retrieve the query results
-        column_names = [column[0] for column in mycursor.description] # Get the column names
-
-
-        frame = Frame(root, bg='white')
-        frame.place(x=510, y=440, anchor=CENTER) # to change position of table
-
-        # Create a label for each column and place it in the frame
-        labels = []
-        for i, column_name in enumerate(column_names):
-            label = Label(frame, text=column_name, bg='white')
-            label.grid(row=0, column=i)
-            labels.append(label)
-
-        # Create a label for each row and place it in the frame
-        for i, row in enumerate(results):
-            for j, col in enumerate(row):
-                label = Label(frame, text=col, bg='white')
-                label.grid(row=i+1, column=j)
-                labels.append(label)
-"""
-
 #################   SIGN_UP PAGE   ############################
 def framedes():
     global frame2
     login_page()
+
 def register_page():
     global frame,frame2
     root.title("Signup Page")
@@ -119,8 +50,6 @@ def register_page():
     def signup_btn_shortkey(event): sign_up()
     def login_link_shortkey(event): login_page()
     frame.destroy()
-
-    
 
     def sign_up():
 
@@ -197,8 +126,8 @@ def login_page():
 
     def verify_login():
         mydb.reconnect()
-        mycursor.execute(f"SELECT * FROM PLAYERS WHERE (USERNAME = '{usrnm_email.get()}' OR EMAIL = '{usrnm_email.get()}') AND PASSWORD = '{pw.get()}'")
-        #mycursor.execute(f"SELECT * FROM PLAYERS WHERE USERNAME = 'ajay' AND PASSWORD = 'sjc'") # FOR EASY LOGIN, REMOVE AT LAST
+        # mycursor.execute(f"SELECT * FROM PLAYERS WHERE (USERNAME = '{usrnm_email.get()}' OR EMAIL = '{usrnm_email.get()}') AND PASSWORD = '{pw.get()}'")
+        mycursor.execute(f"SELECT * FROM PLAYERS WHERE USERNAME = 'ajay' AND PASSWORD = 'sjc'") # FOR EASY LOGIN, REMOVE AT LAST
         data=mycursor.fetchall()
         global usrnm,emai
         if usrnm_email.get() == 'admin' and  pw.get() == 'pass':
