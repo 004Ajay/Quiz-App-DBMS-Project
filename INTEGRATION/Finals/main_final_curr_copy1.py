@@ -214,16 +214,16 @@ def login_page():
     frame.place(relx=.5,rely=.45,anchor=CENTER,width=430, height=520)
 
     label_title = Label(frame, text="QUIZ APP", font=('Montserrat', 50), bg='white')
-    label_title.place(relx=.5,rely=0.1,anchor=CENTER)
+    label_title.place(relx=.5,rely=0.16,anchor=CENTER)
     label_title = Label(frame, text="Log in\nto continue to Quiz App", font=('Montserrat', 12), bg='white')
-    label_title.place(relx=.5, rely=.24,anchor=CENTER)
+    label_title.place(relx=.5, rely=.3,anchor=CENTER)
 
     label_usrnm_email = Label(frame, text="Username/Email", font=('Montserrat', 13), bg='white')
     label_usrnm_email.place(relx=.125, rely=.44)
     usrnm_email = Entry(frame, bg='white',font=('Montserrat',13))
     usrnm_email.place(relx=.14, rely=.495, width=300, height=30)
 
-    label_pw = Label(frame, text="Password", font=('Montserrat', 15), bg='white')
+    label_pw = Label(frame, text="Password", font=('Montserrat', 13), bg='white')
     label_pw.place(relx=.125, rely=.567)
     
     pw = Entry(frame, bg='white', show='*',font=('Montserrat',13))
