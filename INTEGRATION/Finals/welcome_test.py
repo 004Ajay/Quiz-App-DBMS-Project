@@ -1,7 +1,7 @@
 # WELCOME PAGE FOR USERS
 
 from tkinter import *
-import mysql.connector
+from db_connect import project_db
 from update_profile import *
 from catsel_test import * # moving to category selection page
 # from main_final_curr_copy1 import login_page
@@ -13,13 +13,7 @@ from catsel_test import * # moving to category selection page
 
 ##############################################################
 
-mydb = mysql.connector.connect( # connecting to database
-    host="localhost",
-    user="root",
-    passwd="1234",
-    database="project",
-    auth_plugin='mysql_native_password')
-
+mydb = project_db()
 mycursor = mydb.cursor(buffered=True)
 
 

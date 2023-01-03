@@ -3,19 +3,14 @@
 from tkinter import *
 import tkinter.font as tkf # for setting font size for drop_down list
 from tkinter import messagebox as mb
-import mysql.connector
+from db_connect import project_db
 
 
 #root.geometry(f"{root.winfo_screenwidth()}x{root.winfo_screenheight()}")
 # root.state('zoomed')
 
 
-mydb = mysql.connector.connect( # connecting to database
-    host="localhost",
-    user="root",
-    passwd="1234",
-    database="project",
-    auth_plugin='mysql_native_password')
+mydb = project_db()
 mycursor = mydb.cursor(buffered=True)
 
 
