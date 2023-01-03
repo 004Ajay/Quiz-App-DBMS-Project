@@ -4,6 +4,7 @@ from tkinter import *
 import mysql.connector
 from update_profile import *
 from catsel_test import * # moving to category selection page
+# from main_final_curr_copy1 import login_page
 
 
 #################  KEYBOARD SHORTCUTS   ######################
@@ -38,6 +39,8 @@ def welcome_user(username, emai):
 
     def logout():
         root.destroy()
+        # login_page()
+        from main_final_curr_copy1 import login_page
 
     def wel_to_cate():
         root.destroy()
