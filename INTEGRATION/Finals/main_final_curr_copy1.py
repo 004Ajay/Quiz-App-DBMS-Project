@@ -23,6 +23,7 @@ and retrieves it row by row as needed.
 
 root = Tk()
 root.geometry("1920x1080")
+#root.resizable(Width = False,height= False)
 """
 # can use this as final
 # it will autmtcly gets screen size and will zoom the window to dim of screen
@@ -110,18 +111,22 @@ def welcome_user(username, emai):
 #################   SIGN_UP PAGE   ############################
 
 def register_page():
+    global frame
     root.title("Signup Page")
 
     def signup_btn_shortkey(event): sign_up()
     def login_link_shortkey(event): login_page()
+    frame.destroy()
 
     
 
     def sign_up():
+
         name=new_name.get()
         pw1=new_pw.get()
         cpw=new_cpw.get()
         em=new_mail.get()
+        
         mycursor.execute(f"SELECT * FROM PLAYERS WHERE USERNAME = '{name}' OR EMAIL= '{em}'")
         if em=="" or name=="" or pw1=="" or cpw=="":
             mb.showinfo("Add all info", "All fields are mandatory")
@@ -204,42 +209,41 @@ def login_page():
             welcome_user(usrnm, emai) # opening welcome page
         else:
             mb.showinfo("Info Error", "Invalid username or password")
-
+    global frame
     frame=Frame(root,bg='white')
-    frame.place(x=565,y=95,width=430, height=520)
+    frame.place(relx=.5,rely=.45,anchor=CENTER,width=430, height=520)
 
-    label_title = Label(root, text="QUIZ APP", font=('Montserrat', 50), bg='white')
-    label_title.place(x=615, y=100)
-    label_title = Label(root, text="Log in\nto continue to Quiz App", font=('Montserrat', 12), bg='white')
-    label_title.place(x=690, y=192)
+    label_title = Label(frame, text="QUIZ APP", font=('Montserrat', 50), bg='white')
+    label_title.place(relx=.5,rely=0.1,anchor=CENTER)
+    label_title = Label(frame, text="Log in\nto continue to Quiz App", font=('Montserrat', 12), bg='white')
+    label_title.place(relx=.5, rely=.24,anchor=CENTER)
 
-    label_usrnm_email = Label(root, text="Username/Email", font=('Montserrat', 13), bg='white')
-    label_usrnm_email.place(x=620, y=315)
-    usrnm_email = Entry(root, bg='white',font=('Montserrat',13))
-    usrnm_email.place(x=625, y=350, width=300, height=30)
+    label_usrnm_email = Label(frame, text="Username/Email", font=('Montserrat', 13), bg='white')
+    label_usrnm_email.place(relx=.125, rely=.44)
+    usrnm_email = Entry(frame, bg='white',font=('Montserrat',13))
+    usrnm_email.place(relx=.14, rely=.495, width=300, height=30)
 
-    label_pw = Label(root, text="Password", font=('Montserrat', 15), bg='white')
-    label_pw.place(x=620, y=390)
+    label_pw = Label(frame, text="Password", font=('Montserrat', 15), bg='white')
+    label_pw.place(relx=.125, rely=.567)
     
-    pw = Entry(root, bg='white', show='*',font=('Montserrat',13))
-    pw.place(x=625, y=423, width=300, height=30)
+    pw = Entry(frame, bg='white', show='*',font=('Montserrat',13))
+    pw.place(relx=.14, rely=.63, width=300, height=30)
 
-    button_login = Button(root, text="Log in", font=('Montserrat', 14), command=verify_login)
-    button_login.place(x=703, y=486, width=140, height=40)
+    button_login = Button(frame, text="Log in", font=('Montserrat', 14), command=verify_login)
+    button_login.place(relx=.5, rely=.79, width=140, height=40,anchor=CENTER)
     button_login.bind("<Return>", login_shortkey) # short key for login button
+    pswd_show(frame,pw,eye_img,370,330) # moved to here for better TAB key travel
 
-    pswd_show(root,pw,eye_img,930,425) # moved to here for better TAB key travel
-
-    frgt_button = Button(root,text="forgot password?",font=('Montserrat',9,UNDERLINE)\
+    frgt_button = Button(frame,text="forgot password?",font=('Montserrat',9,UNDERLINE)\
                       ,fg='blue',bd=0,cursor='hand2',bg='white',command=FrgtPwWin) # FrgtPwWin from forgot password
-    frgt_button.place(x=618, y=455, width=120, height=20)#x=777
+    frgt_button.place(relx=.125, rely=.696, width=120, height=20)#x=777
     frgt_button.bind("<Return>", frgt_pw_shortkey) # short key for forgot password button
 
-    label_new_user = Label(root, text="New player? ", font=('Montserrat', 12), bg='white')
-    label_new_user.place(x=675, y=570)
-    register_button = Button(root,text="Register here",font=('Montserrat',11,UNDERLINE)\
+    label_new_user = Label(frame, text="New player? ", font=('Montserrat', 12), bg='white')
+    label_new_user.place(relx=.26, rely=.915)
+    register_button = Button(frame,text="Register here",font=('Montserrat',11,UNDERLINE)\
                       ,fg='blue',bd=0,cursor='hand2',bg='white',command=register_page) # bd is border
-    register_button.place(x=778, y=573, width=105, height=20)
+    register_button.place(relx=.52, rely=.915, width=105, height=20)
     register_button.bind("<Return>", reg_btn_shortkey) # short key for register button
 
 root.bind('<Escape>', exit_window)
