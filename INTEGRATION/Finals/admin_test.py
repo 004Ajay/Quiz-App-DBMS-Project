@@ -141,7 +141,7 @@ def admin_panel():
             try:
                 mycursor.execute(f'INSERT INTO QUESTIONS VALUES(NULL,"{ent_qn_title.get()}","{opt_1_ent.get()}","{opt_2_ent.get()}","{opt_3_ent.get()}","{opt_4_ent.get()}","{crt_ans_ent.get()}","{qn_cate_ent.get()}");')
                 mydb.commit()
-                mb.showinfo("Question Added", "Question added successfullty")
+                mb.showinfo("Question Added", "Question added successfully")
                 [widget.delete(0, 'end') for widget in add_qn_frame.winfo_children() if isinstance(widget, tk.Entry)]
             except:
                 mydb.rollback()
@@ -198,7 +198,7 @@ def admin_panel():
             try:
                 mycursor.execute(f'INSERT INTO QUESTIONS VALUES(NULL,"{ent_qn_title.get()}","{opt_1_ent.get()}","{opt_2_ent.get()}","{opt_3_ent.get()}","{opt_4_ent.get()}","{crt_ans_ent.get()}","{qn_cate_ent.get()}");')
                 mydb.commit()
-                mb.showinfo("Question Added", "Question added successfullty")
+                mb.showinfo("Question Added", "Question added successfully")
                 [widget.delete(0, 'end') for widget in update_qn_frame.winfo_children() if isinstance(widget, tk.Entry)]
             except:
                 mb.showinfo("Error", "Error updating question")
@@ -257,7 +257,7 @@ def admin_panel():
                 qn_no = mycursor.fetchall()[0][0] # to take question number from '[(33,)]' list & tuple
                 mycursor.execute(f"DELETE FROM QUESTIONS WHERE Q_NO = {qn_no}") # deleting question using question number(primary key)
                 mydb.commit()
-                mb.showinfo("Question Deleted", "Question deleted successfullty")
+                mb.showinfo("Question Deleted", "Question deleted successfully")
             except:
                 mb.showinfo("Error", "Error deleting the question")
                 mydb.rollback()    
@@ -309,6 +309,18 @@ def admin_panel():
         for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
             widget.destroy()
 
+        def add_usr():
+            try:
+                mycursor.execute(f"INSERT INTO PLAYERS VALUES ('{ent_user_title.get()}', '{email_ent.get()}', '{pass_ent.get()}')") # to insert new user
+                mydb.commit()
+                mb.showinfo("User Added", "User added successfully")
+                [widget.delete(0, 'end') for widget in add_user_frame.winfo_children() if isinstance(widget, tk.Entry)]
+            except:
+                mb.showinfo("Error", "Error adding user")
+                mydb.rollback()
+        
+        def clear(): [widget.delete(0, 'end') for widget in add_user_frame.winfo_children() if isinstance(widget, tk.Entry)]
+
         user_controls()
 
         add_user_frame = tk.LabelFrame(content_frame, text="Add User Profile", font=admin_panel_item_font, bg='White')
@@ -334,16 +346,28 @@ def admin_panel():
         conf_pass_ent = tk.Entry(add_user_frame, borderwidth=5, width=50)
         conf_pass_ent.grid(row=4, column=1, sticky="w", padx=60)
 
-        clear_btn = tk.Button(add_user_frame, text="Clear", font="Montserrat, 25")
+        clear_btn = tk.Button(add_user_frame, text="Clear", font="Montserrat, 25", command=clear)
         clear_btn.grid(row=6,column=0,padx=20,pady=20)
 
-        add_btn = tk.Button(add_user_frame, text="Add User", font="Montserrat, 25")
+        add_btn = tk.Button(add_user_frame, text="Add User", font="Montserrat, 25", command=add_usr)
         add_btn.grid(row=6,column=1,padx=20,pady=20)
 
 
     def update_user():
         for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
             widget.destroy()
+
+        """
+        def update_usr():
+            try:
+                mycursor.execute(f"INSERT INTO PLAYERS VALUES ('{ent_user_title.get()}', '{email_ent.get()}', '{pass_ent.get()}')") # to insert new user
+                mydb.commit()
+                mb.showinfo("User Added", "User added successfully")
+                [widget.delete(0, 'end') for widget in update_user_frame.winfo_children() if isinstance(widget, tk.Entry)]
+            except:
+                mb.showinfo("Error", "Error adding user")
+                mydb.rollback()
+        """    
 
         user_controls()
 
@@ -373,6 +397,16 @@ def admin_panel():
         for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
             widget.destroy()
 
+        def del_usr():
+            try:
+                mycursor.execute(f"DELETE FROM PLAYERS WHERE EMAIL = '{email_ent.get()}'") # to insert new user
+                mydb.commit()
+                mb.showinfo("User Deleted", "User deleted successfully")
+                [widget.delete(0, 'end') for widget in delete_user_frame.winfo_children() if isinstance(widget, tk.Entry)]
+            except:
+                mb.showinfo("Error", "Error deleting user")
+                mydb.rollback()    
+
         user_controls()
 
         delete_user_frame = tk.LabelFrame(content_frame, text="Delete User Profile", font=admin_panel_item_font, bg='White')
@@ -383,9 +417,8 @@ def admin_panel():
         email_ent = tk.Entry(delete_user_frame, borderwidth=5, width=50)
         email_ent.grid(row=1, column=1, sticky="w", padx=60)
 
-        change_btn = tk.Button(delete_user_frame, text="Delete User", font="Montserrat, 25")
-        change_btn.grid(row=3,column=1,padx=90, pady=80)
-
+        del_btn = tk.Button(delete_user_frame, text="Delete User", font="Montserrat, 25", command=del_usr)
+        del_btn.grid(row=3,column=1,padx=90, pady=80)
 
     # admin_img = ImageTk.PhotoImage(Image.open("DBMS-Project/work files/Noyal/admin_white.png"))
     admin_img = ImageTk.PhotoImage(Image.open("admin_white.png")) # Admin image, used in side panel.
