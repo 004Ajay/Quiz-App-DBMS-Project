@@ -23,6 +23,7 @@ and retrieves it row by row as needed.
 
 root = Tk()
 root.geometry("1920x1080")
+# root.resizable(width= False, height= False)
 """
 # can use this as final
 # it will autmtcly gets screen size and will zoom the window to dim of screen
