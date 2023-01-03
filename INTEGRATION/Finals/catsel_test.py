@@ -49,11 +49,16 @@ def win(username, emai):
             s.destroy()
             cnt1.destroy()
             exit_btn.destroy()
-        
-        def to_result():
-            pass
+
+    ###########  IF 'EXIT' BUTTON IS CLICKED DURING GAMEPLAY  ##################    
+        def exit_to_result():
+            # rep.destroy()
             # des()
-            # result()
+            # calc_mark()
+            # crt_ans = user_ans
+            # wrong_ans = 
+            # result(crt_ans, wrong_ans, score)
+            pass
             
     #############  CODE TO APPEND USER ANSWER TO VARIABLE 'USER' #################
     
@@ -63,18 +68,16 @@ def win(username, emai):
             else:
                 rep.destroy()
                 des()
-                z=radiovar.get()
-                user.append(z)
-                # ins = f'INSERT INTO QUIZ_ACTIVITY VALUES(\'ajay@gmail.com\',curdate(),\'{data[qnn-1][7]}\',\'{data[qnn-1][1]}\',\'{z}\',\'{data[qnn-1][6]}\')' # columns: (player_email, date_played, category, question,user_answer,correct_answer) 
-                # mycursor.execute(ins)
-                # mycursor.execute(f'insert into quiz_activity(player_email,date_played,category,question,user_answer,correct_answer) values(\'ajay@gmail.com\',curdate(),\'{data[qnn-1][7]}\',\'{data[qnn-1][1]}\',\'{z}\',\'{data[qnn-1][6]}\');')
-                mycursor.execute(f'insert into quiz_activity(player_email,date_played,category,question,user_answer,correct_answer) values(\'{emai}\',curdate(),\'{data[qnn-1][7]}\',\'{data[qnn-1][1]}\',\'{z}\',\'{data[qnn-1][6]}\');')
-                
+                global user_ans
+                user_ans = radiovar.get()
+                user.append(user_ans)
+                mycursor.execute(f'insert into quiz_activity(player_email,date_played,category,question,user_answer,correct_answer) values(\'{emai}\',curdate(),\'{data[qnn-1][7]}\',\'{data[qnn-1][1]}\',\'{user_ans}\',\'{data[qnn-1][6]}\');')
                 mydb.commit()
                 mydb.reconnect()
                 if qnn==tot_qns: # change no of questions here
                     des()
                     result()
+                    # calc_mark()
                 else:
                     qn()
                 
@@ -91,23 +94,47 @@ def win(username, emai):
     
     
     ########## TO CALCULATE SCORE AND DISPLAY   #################
-    
-        def result():
-            root.title('Result')
-            crt_ans = wrong_ans = 0 #score = 0
-            for j in range(0,tot_qns): # change no of questions here
+        """def calc_mark():
+            global crt_ans, wrong_ans, score 
+
+            crt_ans = wrong_ans = score = 0
+            for j in range(0, tot_qns): # change no of questions here
                 if user[j]==ans[j]:
-                    #score += 10
+                    score += 10
                     crt_ans += 1
                 else:
-                    #score -= 10
+                    score -= 10
                     wrong_ans += 1
             
+            if score < 0: # if score goes negative
+                score = 0
+
+               
+            result(crt_ans, wrong_ans, score)    """
+
+        # crt_ans, wrong_ans, score
+        def result():
+            root.title('Result')
+            crt_ans = wrong_ans = score = 0
+            for j in range(0,tot_qns): # change no of questions here
+                if user[j]==ans[j]:
+                    score += 10
+                    crt_ans += 1
+                else:
+                    score -= 10
+                    wrong_ans += 1
+            
+            if score < 0: # if score goes negative
+                score = 0
+
             rslt=Label(root,text=f'Result of {cat} Quiz',font=('Montserrat',20,UNDERLINE,'bold'),bg='white')
             rslt.place(relx=0.5,rely=0.1,anchor=CENTER)
     
             usr=Label(root,text= f'Username: {username}',font=('Montserrat',16),bg='white') # change username to get from db 
             usr.place(relx=0.5,rely=0.17,anchor=CENTER)
+
+            score=Label(root, text= f'Score: {score}', font=('Montserrat',16), bg='white') # change username to get from db 
+            score.place(relx=0.5,rely=0.23,anchor=CENTER)
     
             dtl=Label(root,text='Detailed Report',font=('Montserrat',16,UNDERLINE),bg='white')
             dtl.place(relx=0.5,rely=0.3,anchor=CENTER)
@@ -164,7 +191,7 @@ def win(username, emai):
                 rep=Button(root,text='Report',font=('Montserrat', 15,UNDERLINE),bg='white',fg='blue',bd=0,cursor='hand2')
                 rep.place(relx=0.22,rely=0.8,width=150,height=50)
     
-                exit_btn=Button(root,text='Exit',font=('Montserrat', 15),command=to_result)
+                exit_btn=Button(root,text='Exit',font=('Montserrat', 15),command=exit_to_result)
                 exit_btn.place(relx=0.46,rely=0.8,width=140,height=40)
     
                 cnt1=Button(root,text='Continue',font=('Montserrat', 15),command=selected)
