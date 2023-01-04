@@ -48,7 +48,7 @@ def win(username, emai):
             r4.destroy()
             s.destroy()
             cnt1.destroy()
-            exit_btn.destroy()
+            # exit_btn.destroy()
 
     ###########  IF 'EXIT' BUTTON IS CLICKED DURING GAMEPLAY  ##################    
         def exit_to_result():
