@@ -57,13 +57,13 @@ def welcome_user(username, emai):
     welcome = Label(text=f"Welcome {username}", font=('Montserrat',33,'bold'),bg="white")
     welcome.place(relx=0.5,rely=0.15, anchor=CENTER)
 
-    last_played = Label(text=f"Last played on 27/11/2022", font=('Montserrat',20),bg="white")
+    last_played = Label(text=f"Last played on 27/12/2022", font=('Montserrat',20),bg="white")
     last_played.place(relx=0.5,rely=0.27, anchor=CENTER)
 
-    stat = Label(root,text="Recent gameplays", font=('Montserrat',20),bg="white")
-    stat.place(x=380,y=310)
+    # stat = Label(root,text="Recent gameplays", font=('Montserrat',20),bg="white")
+    # stat.place(x=380,y=310)
 
-    join_date = Label(text="Player since: 17/11/2022", font=('Montserrat',15),bg="white")
+    join_date = Label(text="Player since: 23/12/2022", font=('Montserrat',15),bg="white")
     join_date.place(x=20,y=719)
 
     b_logout = Button(root,text ="Log out",font=('Montserrat',12),command=logout)
@@ -74,6 +74,6 @@ def welcome_user(username, emai):
     b_settings.place(relx=.95,rely=.0149)
 
     b_qu = Button(root,text="New Game",font=('Montserrat',15), command=wel_to_cate)
-    b_qu.place(x=1000, y=400, width=160, height=50)
+    b_qu.place(relx=0.5, rely=0.45, width=160, height=50, anchor=CENTER)
 
     root.bind('<Escape>', exit_window)

@@ -89,11 +89,16 @@ def win(username, emai):
             mycursor.execute(f'SELECT * FROM QUESTIONS WHERE CATE_NAME=\'{cat}\' ORDER BY RAND()')
             data=mycursor.fetchall()
             global tot_qns
-            tot_qns = len(data)
+            tot_qns = 1 #len(data)
             qn()
     
     
     ########## TO CALCULATE SCORE AND DISPLAY   #################
+
+        def exit_now():
+            root.destroy()
+            import welcome_page 
+            welcome_page.welcome_user(username, emai)
         """def calc_mark():
             global crt_ans, wrong_ans, score 
 
@@ -159,7 +164,7 @@ def win(username, emai):
             lgot=Button(root,text='Log Out',font=('Montserrat', 15))
             lgot.place(relx=0.22,rely=0.6,width=150,height=50)
     
-            cnt=Button(root,text='Continue',font=('Montserrat', 15),command=exit)
+            cnt=Button(root,text='Continue',font=('Montserrat', 15),command=exit_now)
             cnt.place(relx=0.68,rely=0.6,width=150,height=50)
     
     ############## USER   ############
