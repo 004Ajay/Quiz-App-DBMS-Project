@@ -121,7 +121,6 @@ def win(username, emai):
                     score += 10
                     crt_ans += 1
                 else:
-                    score -= 10
                     wrong_ans += 1
             
             if score < 0: # if score goes negative
@@ -172,7 +171,7 @@ def win(username, emai):
                 radiovar.set(NONE)
                 ans.append(data[qnn][6])
     
-                s=Label(root,text=data[qnn][1],bg='white',font=('Montserrat', 18))
+                s=Label(root,text=f'{qnn+1}. '+data[qnn][1],bg='white',font=('Montserrat', 18))
                 s.place(relx=0.5,rely=0.2,anchor=CENTER)
                 
                 r1 = Radiobutton(root,text=data[qnn][2],variable=radiovar,value=data[qnn][2],bg='white',font=('Montserrat', 15))
@@ -191,11 +190,13 @@ def win(username, emai):
                 rep=Button(root,text='Report',font=('Montserrat', 15,UNDERLINE),bg='white',fg='blue',bd=0,cursor='hand2')
                 rep.place(relx=0.22,rely=0.8,width=150,height=50)
     
-                exit_btn=Button(root,text='Exit',font=('Montserrat', 15),command=exit_to_result)
-                exit_btn.place(relx=0.46,rely=0.8,width=140,height=40)
+                # exit_btn=Button(root,text='Exit',font=('Montserrat', 15),command=exit_to_result)
+                # exit_btn.place(relx=0.46,rely=0.8,width=140,height=40)
     
                 cnt1=Button(root,text='Continue',font=('Montserrat', 15),command=selected)
                 cnt1.place(relx=0.68,rely=0.8,width=150,height=40)
+
+                # scr_label = Label(root, )
         drpg()
         #ques()
 

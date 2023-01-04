@@ -133,10 +133,10 @@ def admin_panel():
         category_controls_frame.pack()
 
         add_category_button = tk.Button(category_controls_frame, bg="#F0F0F0", text="Add Category", padx=10, pady=5, font="Montserrat, 25",command=add_category)
-        add_category_button.grid(row=3, column=0)
-
+        add_category_button.grid(row=3, column=0,padx=100, pady=50)
+    
         delete_category_button = tk.Button(category_controls_frame, bg="#F0F0F0", text="Delete Category", padx=10, pady=5, font="Montserrat, 25",command=delete_category)
-        delete_category_button.grid(row=3, column=1)    
+        delete_category_button.grid(row=3, column=3, padx=100, pady=50)     
 
     """
     # TO BE COMPLETED IF WE GET TIME
@@ -191,9 +191,11 @@ def admin_panel():
         def del_cat():
             try:
                 cat = ent_cat_title.get()
+                
                 mycursor.execute("SELECT CATEGORY_NAME FROM CATEGORIES")
                 categories = [i[0].lower() for i in mycursor.fetchall()]
                 if cat.lower() in categories:
+                    mycursor.execute(f"DELETE FROM QUESTIONS WHERE CATE_NAME = '{ent_cat_title.get()}'")
                     mycursor.execute(f"DELETE FROM CATEGORIES WHERE CATEGORY_NAME = '{ent_cat_title.get()}'")
                     mydb.commit()
                     mb.showinfo("Category Deleted", "Category deleted successfully")
