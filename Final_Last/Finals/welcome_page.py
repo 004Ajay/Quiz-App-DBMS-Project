@@ -24,7 +24,7 @@ def welcome_user(username, emai):
 
     def logout():
         root.destroy()
-        from main_final_curr_copy1 import login_page
+        from main import login_page
 
     def wel_to_cate():
         root.destroy()
