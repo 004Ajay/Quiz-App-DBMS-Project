@@ -69,7 +69,7 @@ def welcome_user(username, emai):
     b_logout = Button(root,text ="Log out",font=('Montserrat',12),command=logout)
     b_logout.place(relx=.89,rely=0.016,height=30,width=80)
 
-    settings_icon_img = PhotoImage(file="settings.png") 
+    settings_icon_img = PhotoImage(file="images/settings.png") 
     b_settings = Button(root,image=settings_icon_img, command= settings_icon)
     b_settings.place(relx=.95,rely=.0149)
 
