@@ -350,8 +350,8 @@ def admin_panel():
 
         question_controls()
 
-        del_qn_frame = tk.LabelFrame(root,bg='White')
-        del_qn_frame.pack()
+        del_qn_frame = tk.LabelFrame(content_frame,bg='White')
+        del_qn_frame.pack(side=TOP,anchor=CENTER)
 
         def show_qns():
             mydb.reconnect() # To refresh the cursor buffer
@@ -364,11 +364,12 @@ def admin_panel():
             mycursor.execute(f"SELECT QUESTION FROM QUESTIONS WHERE CATE_NAME = '{cate_menu.get()}'")
             qns_lst = [i[0] for i in mycursor.fetchall()]
 
-            qn_drop_down = OptionMenu(root, qn_menu, *qns_lst) # Create a dropdown menu for questions of selected category
+            qn_drop_down = OptionMenu(del_qn_frame, qn_menu, *qns_lst) # Create a dropdown menu for questions of selected category
             qn_drop_down.config(font=side_panel_font)
             qn_dd_list = root.nametowidget(qn_drop_down.menuname)  # Get menu widget.
             qn_dd_list.config(font=side_panel_font)
-            qn_drop_down.place(x=450, y=530, width=850, height=40)
+            qn_drop_down.grid(row=5,column=1,padx=20,pady=20)
+
 
 
         cate_menu = tk.StringVar() # drop-down list of categories
@@ -377,17 +378,17 @@ def admin_panel():
         mycursor.execute("SELECT DISTINCT CATE_NAME FROM QUESTIONS")
         categories = [i[0] for i in mycursor.fetchall()]
 
-        cate_drop_down = tk.OptionMenu(root, cate_menu, *categories) # Create a dropdown menu
-        cate_drop_down.config(font=side_panel_font) # tkf.Font(family='Montserrat', size=15))
-        cate_dd_list = root.nametowidget(cate_drop_down.menuname)  # Get menu widget.
+        cate_drop_down = tk.OptionMenu(del_qn_frame, cate_menu, *categories) # Create a dropdown menu
+        cate_drop_down.config(font=side_panel_font,borderwidth=5, width=50) # tkf.Font(family='Montserrat', size=15))
+        cate_dd_list = del_qn_frame.nametowidget(cate_drop_down.menuname)  # Get menu widget.
         cate_dd_list.config(font=side_panel_font) # tkf.Font(family='Montserrat', size=12))  # Set the dropdown menu's font
-        cate_drop_down.place(x=680, y=350, width=400, height=40)
+        cate_drop_down.grid(row=1,column=1,padx=20,pady=20)
 
-        show_qn_btn = Button(root, text="Show Question",font=side_panel_font, command = show_qns) # add command function
-        show_qn_btn.place(x=800, y=430, width=170, height=40)
+        show_qn_btn = Button(del_qn_frame, text="Show Question",font=side_panel_font, command = show_qns) # add command function
+        show_qn_btn.grid(row=3,column=1,padx=20,pady=20)
 
-        del_button = tk.Button(root, text="Delete Question",font=side_panel_font, command=del_qn) # , command = delete_question) # add command function
-        del_button.place(x=800, y=610, width=170, height=40)
+        del_button = tk.Button(del_qn_frame, text="Delete Question",font=side_panel_font, command=del_qn) # , command = delete_question) # add command function
+        del_button.grid(row=7,column=1,padx=20,pady=20)
 
     ##################### USER CONTROLS SECTION #############################
 
@@ -546,3 +547,4 @@ def admin_panel():
     dashboard()
 
     root.bind('<Escape>', exit_window)
+    root.mainloop()
