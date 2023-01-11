@@ -178,7 +178,7 @@ def admin_panel():
         desc_label = tk.Label(add_cat_frame, text="Enter Category Description", font=side_panel_font, justify="left", bg='White')
         desc_label.grid(row=3, column=0, sticky="w", pady=25, padx=60)
         ent_cat_desc = tk.Entry(add_cat_frame, borderwidth=5, width=50)
-        ent_cat_desc.place(x=275,y=120,height=75, width=310)
+        ent_cat_desc.place(relx=0.532,rely=0.2,width=315,height=50)
 
         cat_add_btn = tk.Button(add_cat_frame, text="Add Category", font="Montserrat, 25", command=add_cat)
         cat_add_btn.grid(row=5,column=1,padx=90, pady=80)
