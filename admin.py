@@ -152,7 +152,7 @@ def admin_panel():
 
     ##################### CATEGORY CONTROLS SECTION #############################
     def add_category():
-        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame
             widget.destroy()
 
         def add_cat():
@@ -184,7 +184,7 @@ def admin_panel():
         cat_add_btn.grid(row=5,column=1,padx=90, pady=80)
 
     def delete_category():
-        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame
             widget.destroy()
 
         def del_cat():
@@ -220,7 +220,7 @@ def admin_panel():
 
     ##################### QUESTION CONTROLS SECTION #############################
     def add_question():
-        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame
             widget.destroy()
 
         def add_qn():
@@ -276,7 +276,7 @@ def admin_panel():
 
 
     def update_question():
-        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame
             widget.destroy()
 
         def update_qn():
@@ -334,7 +334,7 @@ def admin_panel():
 
 
     def delete_question():
-        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame
             widget.destroy()
 
         def del_qn():
@@ -393,7 +393,7 @@ def admin_panel():
     ##################### USER CONTROLS SECTION #############################
 
     def add_user():
-        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame
             widget.destroy()
 
         def add_usr():
@@ -441,7 +441,7 @@ def admin_panel():
 
 
     def update_user():
-        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame
             widget.destroy()
 
         """
@@ -481,7 +481,7 @@ def admin_panel():
 
     def delete_user():
 
-        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame. # Not working for some reason, try disabling the button.
+        for widget in content_frame.winfo_children(): # To delete alredy exisiting widgets in content_frame
             widget.destroy()
 
         def del_usr():
@@ -548,3 +548,4 @@ def admin_panel():
 
     root.bind('<Escape>', exit_window)
     root.mainloop()
+# admin_panel()    
