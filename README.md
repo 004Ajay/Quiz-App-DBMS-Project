@@ -21,7 +21,7 @@ We 5 people are the brain, ideators, designers, programmers and testers of this 
 
   * [Page Flow of the app](#Page-Flow-of-the-app)
 
-  * [Code Structure & Imports](#Code-Structure-&-Imports)
+  * [Code Structure and Imports](#Code-Structure-and-Imports)
 
 
 <br>
@@ -89,7 +89,7 @@ We 5 people are the brain, ideators, designers, programmers and testers of this 
 
 ---
 
-## Code Structure & Imports
+## Code Structure and Imports
 
 ![Structure & Imports](images/readme_imgs/Imports.png)
 
