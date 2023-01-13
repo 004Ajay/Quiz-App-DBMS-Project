@@ -9,7 +9,11 @@ The Project is a **Quiz Application**, frontend & backend coded in Python Tkinte
 
 **To run the app:**
 
-* Select all MySQL Queries from [this]() & paste it in your 
+* Start MySQL Workbench & make with details like this:
+
+![db image](images/readme_imgs/db%20image.png)
+
+* Select all MySQL Queries from [this](https://github.com/004Ajay/DBMS-Project/blob/main/database.sql) & paste it in your MySQL Workbench
 
 * And run the [main.py](https://github.com/004Ajay/DBMS-Project/blob/main/main.py) file to see the magic
 
