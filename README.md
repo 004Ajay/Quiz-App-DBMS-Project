@@ -51,10 +51,12 @@ The Project is a **Quiz Application**, frontend & backend coded in Python Tkinte
 * Clone the repository to your local machine 
 
 * Install necessary python packages
+    
+    * Go to `cmd` of the cloned repository's folder & paste this command:
 
-        pip install -r requirements.txt
+            pip install -r requirements.txt
 
-    * if the above code shows error, then you can manually required packages from [requirements.txt](https://github.com/004Ajay/DBMS-Project/blob/main/requirements.txt)         
+    * If the above code shows error, then you can manually required packages from [requirements.txt](https://github.com/004Ajay/DBMS-Project/blob/main/requirements.txt)         
 
 <br>
 
@@ -65,6 +67,8 @@ The Project is a **Quiz Application**, frontend & backend coded in Python Tkinte
 ## Run the app
 
 * Start MySQL Workbench & add new connection with details:
+
+    * Every fields may not be present in connection creation page, use these details where it is asked.
 
 ![db image](images/readme_imgs/db%20image.png)
 
@@ -97,4 +101,5 @@ The Project is a **Quiz Application**, frontend & backend coded in Python Tkinte
 <br>
 
 * There are more things in the app that are useful, please explore yourself. 
+
 <!-- ------------------------------------------- -->
