@@ -1,6 +1,14 @@
 # S5 DBMS Project
 The Project is a **Quiz Application**, frontend & backend coded in Python Tkinter & MySQL respectively. 
 
+<details>
+<summary> The Creators </summary>
+
+We 5 people are the brain, ideators, designers, programmers and testers of this Project
+
+
+</details>
+
 
 
 ### Quick Navigation
@@ -13,7 +21,7 @@ The Project is a **Quiz Application**, frontend & backend coded in Python Tkinte
 
   * [Page Flow of the app](#Page-Flow-of-the-app)
 
-  * [Code Structure and Imports](#Code-Strucutre-and-Imports)
+  * [Code Structure & Imports](#Code-Structure-&-Imports)
 
 
 <br>
@@ -81,7 +89,7 @@ The Project is a **Quiz Application**, frontend & backend coded in Python Tkinte
 
 ---
 
-## Code Structure and Imports
+## Code Structure & Imports
 
 ![Structure & Imports](images/readme_imgs/Imports.png)
 
