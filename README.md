@@ -4,12 +4,27 @@ The Project is a **Quiz Application**, frontend & backend coded in Python Tkinte
 <details>
 <summary> The Creators </summary>
 
-We 5 people are the brain, ideators, designers, programmers and testers of this Project
+## We 5 people are the brain, ideators, designers, programmers and testers of this Project
 
+<br>
+
+### Click the names to go to our GitHub Profile
+
+[Ajay T Shaju](https://github.com/004Ajay)
+
+[Judin Augustine](https://github.com/Minddigger07)
+
+[Justin Thomas Jo](https://github.com/Juz-Tom-J)
+
+[Noyal Joseph](https://github.com/StDensity)
+
+[Vishnuprasad KG](https://github.com/VISHNUPRASAD-K-G)
 
 </details>
 
+<br>
 
+---
 
 ### Quick Navigation
 
@@ -22,20 +37,6 @@ We 5 people are the brain, ideators, designers, programmers and testers of this 
   * [Page Flow of the app](#Page-Flow-of-the-app)
 
   * [Code Structure and Imports](#Code-Structure-and-Imports)
-
-
-<br>
-<br>
-<br>
-
-  
-
-  * [Demo Queries](#Demo-Queries)
-
-  * [Write some real queries](#Write-some-real-queries)
-
-  * [Dropping user](#Dropping-user)
-
 
 <br>
 
