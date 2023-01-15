@@ -16,7 +16,7 @@ def admin_panel():
     root = tk.Tk()
     root.title("Admin")
     root.geometry("1920x1080")
-    root.iconbitmap("images/Q.ico")
+    root.iconbitmap("assets/Q.ico")
 
     def exit_window(e): root.destroy() # to exit window
 
@@ -508,7 +508,7 @@ def admin_panel():
         del_btn.grid(row=3,column=1,padx=90, pady=80)
 
     # admin_img = ImageTk.PhotoImage(Image.open("DBMS-Project/work files/Noyal/admin_white.png"))
-    admin_img = ImageTk.PhotoImage(Image.open("images/admin_white.png")) # Admin image, used in side panel.
+    admin_img = ImageTk.PhotoImage(Image.open("assets/admin_white.png")) # Admin image, used in side panel.
     
     # Side Pannel
     side_panel = tk.Frame(root, bg=side_panel_bg,)

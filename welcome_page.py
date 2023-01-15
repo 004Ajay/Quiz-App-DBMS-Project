@@ -12,7 +12,7 @@ def welcome_user(username, emai):
     root = Tk()
     root.geometry("1920x1080")
     root.title(f"Welcome {username}")
-    root.iconbitmap('images/Q.ico')
+    root.iconbitmap('assets/Q.ico')
 
     global settings_icon_img
     
@@ -69,7 +69,7 @@ def welcome_user(username, emai):
     b_logout = Button(root,text ="Log out",font=('Montserrat',12),command=logout)
     b_logout.place(relx=.89,rely=0.016,height=30,width=80)
 
-    settings_icon_img = PhotoImage(file="images/settings.png") 
+    settings_icon_img = PhotoImage(file="assets/settings.png") 
     b_settings = Button(root,image=settings_icon_img, command= settings_icon)
     b_settings.place(relx=.95,rely=.0149)
 
