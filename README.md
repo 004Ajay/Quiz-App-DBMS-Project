@@ -1,4 +1,10 @@
-# S5 DBMS Project
+<p align="center">
+<img src="https://img.icons8.com/fluency/480/000000/database.png" title = "DBMS Project" height='200'></p>
+
+<h1 align="center"> S5 DBMS PROJECT </h1>
+
+<!-- ---------------------------------------------------  -->
+
 The Project is a **Quiz Application**, frontend & backend coded in Python Tkinter & MySQL respectively. 
 
 <details>
