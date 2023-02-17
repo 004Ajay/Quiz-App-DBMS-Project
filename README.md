@@ -76,7 +76,7 @@ The Project is a **Quiz Application**, frontend & backend coded in Python Tkinte
 
     * Every fields may not be present in connection creation page, use these details where it is asked.
 
-![db image](images/readme_imgs/db%20image.png)
+![db image](assets/readme_imgs/db%20image.png)
 
 * Now, select all MySQL Queries from [database.sql](https://github.com/004Ajay/DBMS-Project/blob/main/database.sql) file & paste it in your MySQL Workbench
 
@@ -92,7 +92,7 @@ The Project is a **Quiz Application**, frontend & backend coded in Python Tkinte
 
 ## Page Flow of the app
 
-![Page Flow](images/readme_imgs/PageFlowDBProject.png)
+![Page Flow](assets/readme_imgs/PageFlowDBProject.png)
 
 <br>
 
@@ -102,7 +102,7 @@ The Project is a **Quiz Application**, frontend & backend coded in Python Tkinte
 
 ## Code Structure and Imports
 
-![Structure & Imports](images/readme_imgs/Imports.png)
+![Structure & Imports](assets/readme_imgs/Imports.png)
 
 <br>
 
